@@ -1,15 +1,26 @@
 import Header from '@/components/Layout/Header/Header_Index';
+import { useEffect, useState } from 'react';
+import Loading from '@/components/Layout/Loading/Loading';
+
 import classNames from 'classnames/bind';
 import styles from './SiteMapPage.module.scss';
 
 const cx = classNames.bind(styles);
 
 const SiteMapPage = () => {
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 500);
+        window.scroll(0, 0);
+    }, []);
     return (
         <>
+            {loading ? <Loading /> : null}
             <Header title={'Site Map'} />
             <div className={cx('sitemap-container')}>
-                <div class={cx('sitemap-wrapper')}>
+                <div className={cx('sitemap-wrapper')}>
                     <h1 className={cx('sitemap-heading')}>MY SITEMAP</h1>
                     <nav className={cx('primary')}>
                         <ul>

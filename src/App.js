@@ -4,15 +4,19 @@ import routes from '@/routes';
 import NavBar from './components/Layout/Navigation/Nav_Index';
 import Footer from './components/Layout/Footer/Footer_Index';
 import GlobalStyles from './components/GlobalStyles';
+import { useShoppingContext } from './contexts/Shopping_Context';
 
 import { ToastContainer, Flip } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+    const { setHideMenuUser, setHideMenuPage } = useShoppingContext();
+
     const location = useLocation();
 
     useEffect(() => {
-        window.scroll(0, 0);
+        setHideMenuUser(true);
+        setHideMenuPage(true);
     }, [location]);
 
     return (

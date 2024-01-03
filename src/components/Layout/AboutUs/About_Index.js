@@ -3,6 +3,8 @@ import AboutIntro from './About_Intro';
 import AboutItem from './About_Item';
 import AboutOutstanding from './About_Outstanding';
 import { World, User, Coffee, Eye } from '@/icons';
+import { useEffect, useState } from 'react';
+import Loading from '../Loading/Loading';
 
 import classNames from 'classnames/bind';
 import styles from './About.module.scss';
@@ -10,8 +12,18 @@ import styles from './About.module.scss';
 const cx = classNames.bind(styles);
 
 const About = () => {
+    const [loading, setLoading] = useState(true);
+    
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 500);
+        window.scroll(0, 0);
+    }, []);
+
     return (
         <>
+            {loading ? <Loading /> : null}
             <AboutIntro />
             <div className={cx('about-quality-container')}>
                 <Title heading={'Product Quality'} description={'Always bring customers the best products.'} />

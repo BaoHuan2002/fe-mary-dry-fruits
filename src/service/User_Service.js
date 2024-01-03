@@ -60,9 +60,7 @@ const dataUser = async () => {
             response: response,
         };
     } catch (error) {
-        return {
-            success: false,
-        };
+        
     }
 };
 

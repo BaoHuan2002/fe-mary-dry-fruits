@@ -38,7 +38,7 @@ const ContactIndex = () => {
                     />
                     <ContactItem
                         title={'Address'}
-                        info={'35/6 Đường D5, Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh 72308'}
+                        info={'35/6 Đường D5, Phường 25, Bình Thạnh, Thành phố Hồ Chí Minh'}
                         icon={
                             <FontAwesomeIcon
                                 icon={icon({ name: 'location-dot', style: 'solid' })}

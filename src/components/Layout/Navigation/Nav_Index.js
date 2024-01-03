@@ -1,8 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './Nav_Index.module.scss';
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Search } from '@/icons';
+import { Link } from 'react-router-dom';
 import { useShoppingContext } from '@/contexts/Shopping_Context';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
@@ -12,16 +11,26 @@ import Cart from '../Cart/Cart';
 import MenuUser from '../Menu/Menu_User';
 import MenuPage from '../Menu/Menu_Page';
 import MenuLaptop from '../Menu/Menu_Laptop';
-import { loginUser } from '@/service/User_Service';
+import { dataUser } from '@/service/User_Service';
 
 const cx = classNames.bind(styles);
 
 function NavBarIndex() {
     const [show, setShow] = useState(false);
-    const { cartQuantity, remove, showPoper, dataName } = useShoppingContext();
+    const [showMenu, setShowMenu] = useState(true);
+    const [showMenuPage, setShowMenuPage] = useState(true);
+    const {
+        cartQuantity,
+        remove,
+        showPoper,
+        dataName,
+        setDataName,
+        setHideMenuUser,
+        hideMenuUser,
+        setHideMenuPage,
+        hideMenuPage,
+    } = useShoppingContext();
     const [laptop, setLaptop] = useState(false);
-
-    const navigate = useNavigate();
 
     const token = localStorage.getItem('jwt');
 
@@ -33,38 +42,16 @@ function NavBarIndex() {
         handleResize();
         window.addEventListener('resize', handleResize);
 
-        //     if (!token) {
-        //        return
-        //     } else{
-        //         let loginAgain = async () => {
-        //             const res = await loginUser( );
+        const fetchData = async () => {
+            try {
+                const res = await dataUser();
+                if (res && res.success === true) {
+                    setDataName(res.response.full_name);
+                }
+            } catch (error) {}
+        };
 
-        //             if (res && res.success === true) {
-        //                 localStorage.setItem('jwt', res.response.access_token);
-
-        //                 setInterval(async () => {
-        //                     localStorage.removeItem('jwt');
-        //                     localStorage.removeItem('login');
-
-        //                     try {
-        //                         const res = await loginUser();
-        //                         if (res && res.success === true) {
-        //                             localStorage.setItem('jwt', res.response.access_token);
-        //                             localStorage.setItem('login', true);
-        //                             setCheckLogin(true);
-        //                         } else {
-        //                             navigate('/account/login');
-        //                         }
-        //                     } catch (error) {
-        //                         console.log(error);
-        //                     }
-        //                 }, 55 * 10 * 1000);
-        //             } else {
-        //                 navigate('/');
-        //             }
-        //         };
-        //         loginAgain();
-        //     }
+        fetchData();
 
         return () => {
             window.removeEventListener('resize', handleResize);
@@ -78,6 +65,26 @@ function NavBarIndex() {
 
     const handleHideCart = () => {
         setShow(false);
+    };
+
+    const handleShowMenuPage = () => {
+        setShowMenuPage(true);
+        setHideMenuPage(false);
+    };
+
+    const handleHideMenuPage = () => {
+        setShowMenuPage(false);
+        setHideMenuPage(false);
+    };
+
+    const handleShowMenuUser = () => {
+        setShowMenu(true);
+        setHideMenuUser(false);
+    };
+
+    const handleHideMenuUser = () => {
+        setShowMenu(false);
+        setHideMenuUser(false);
     };
 
     return (
@@ -105,18 +112,25 @@ function NavBarIndex() {
                             <Tippy
                                 appendTo={() => document.body}
                                 interactive={true}
+                                visible={showMenuPage && hideMenuPage === false}
                                 delay={[0, 500]}
                                 offset={[5, 5]}
                                 render={(attrs) => (
-                                    <div className={cx('menu-page')} tabIndex="-1" {...attrs}>
+                                    <div
+                                        className={cx('menu-page')}
+                                        tabIndex="-1"
+                                        {...attrs}
+                                        onClick={() => handleShowMenuPage()}
+                                    >
                                         <MenuLaptop />
                                     </div>
                                 )}
+                                onClickOutside={() => handleHideMenuPage()}
                             >
                                 <li className={cx('nav-item-left')}>
-                                    <Link to="#" className={cx('nav-item-link')}>
+                                    <div className={cx('nav-item-link')} onClick={() => handleShowMenuPage()}>
                                         PAGES
-                                    </Link>
+                                    </div>
                                 </li>
                             </Tippy>
                         ) : (
@@ -129,6 +143,7 @@ function NavBarIndex() {
                                 <Tippy
                                     appendTo={() => document.body}
                                     interactive={true}
+                                    visible={showMenuPage && hideMenuPage === false}
                                     delay={[0, 500]}
                                     offset={[5, 5]}
                                     render={(attrs) => (
@@ -136,11 +151,12 @@ function NavBarIndex() {
                                             <MenuPage />
                                         </div>
                                     )}
+                                    onClickOutside={() => handleHideMenuPage()}
                                 >
                                     <li className={cx('nav-item-left')}>
-                                        <Link to="#" className={cx('nav-item-link')}>
+                                        <div className={cx('nav-item-link')} onClick={() => handleShowMenuPage()}>
                                             PAGES
-                                        </Link>
+                                        </div>
                                     </li>
                                 </Tippy>
                             </>
@@ -171,6 +187,7 @@ function NavBarIndex() {
                                 <Tippy
                                     appendTo={() => document.body}
                                     interactive={true}
+                                    visible={showMenu && hideMenuUser === false}
                                     delay={[0, 500]}
                                     offset={[0, 15]}
                                     render={(attrs) => (
@@ -178,8 +195,13 @@ function NavBarIndex() {
                                             <MenuUser />
                                         </div>
                                     )}
+                                    onClickOutside={() => handleHideMenuUser()}
                                 >
-                                    <div to="/account/profile" className={cx('nav-item-name')}>
+                                    <div
+                                        to="/account/profile"
+                                        className={cx('nav-item-name')}
+                                        onClick={() => handleShowMenuUser()}
+                                    >
                                         Wellcome: {dataName ? dataName : 'User'}
                                     </div>
                                 </Tippy>
