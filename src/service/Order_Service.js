@@ -22,7 +22,7 @@ const Order = async (data_order) => {
 };
 
 const PayOrder = async (data) => {
-    const orderPayOrderUrl = `/api/vnpay/vnpay_payment?subtotal=${data}&bank_code=NCB`;
+    const orderPayOrderUrl = `/api/vnpay/vnpay_payment?total=${data}&bank_code=NCB`;
 
     const headers = {
         'Content-Type': 'application/json',
