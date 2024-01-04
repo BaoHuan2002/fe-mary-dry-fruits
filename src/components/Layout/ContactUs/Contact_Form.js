@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { toast, Flip } from 'react-toastify';
 import Button from '@/components/Button/ButtonIndex';
+import axios from '@/service/axios';
+
 import classNames from 'classnames/bind';
 import styles from './Contact_Us.module.scss';
-import axios from '@/service/axios';
-import { toast, Flip } from 'react-toastify';
-import Loading from '../Loading/Loading';
 
 const cx = classNames.bind(styles);
 
@@ -14,8 +14,7 @@ const ContactForm = () => {
     const [phone, setPhone] = useState('');
     const [content, setContent] = useState('');
     const [isErrors, setIsErrors] = useState({});
-    const [loading, setLoading] = useState(true);
-
+    
     const textErrors = {
         fullName: 'Please do not leave it blank ',
         email: 'Please do not leave it blank and must be email',
@@ -90,16 +89,9 @@ const ContactForm = () => {
         }
     };
 
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 500);
-        window.scroll(0, 0);
-    }, []);
-
     return (
         <>
-            {loading ? <Loading /> : null}
+            
             <div className={cx('contact-form-container')}>
                 <div className={cx('contact-form-outner')}>
                     <input

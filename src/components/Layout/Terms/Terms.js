@@ -1,20 +1,23 @@
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import Title from '../Main/Title/Title_Index';
+import Loading from '../Loading/Loading';
+
 import classNames from 'classnames/bind';
 import styles from './Terms.module.scss';
-import Title from '../Main/Title/Title_Index';
-import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import Loading from '../Loading/Loading';
 
 const cx = classNames.bind(styles);
 
 const Terms = () => {
     const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
         }, 500);
         window.scroll(0, 0);
     }, []);
+
     return (
         <>
             {loading ? <Loading /> : null}

@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faStore, faBell, faTag, faHeadset } from '@fortawesome/free-solid-svg-icons';
 import AccountInformation from './Account_Information';
 import OrderComponent from './History_Order/Order_Management';
-import DiscountCode from './Discount_Code';
 import CustomerSupport from './Customer_Support';
 import Notification from './Notification';
 
@@ -31,8 +30,6 @@ const ProfileIndex = () => {
             case 2:
                 return <Notification />;
             case 3:
-                return <DiscountCode />;
-            case 4:
                 return <CustomerSupport />;
             default:
                 return null;
@@ -47,7 +44,6 @@ const ProfileIndex = () => {
                             'Account Information',
                             'Order Management',
                             'Notification',
-                            'Discount Code',
                             'Customer Support',
                         ].map((title, index) => (
                             <div

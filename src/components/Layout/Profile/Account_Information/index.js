@@ -58,6 +58,7 @@ const AccountInformation = () => {
                     navigate('/account/login');
                 } finally {
                     setLoading(false);
+                    window.scrollTo(0,0);
                 }
             };
             fetchData();
