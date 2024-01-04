@@ -25,10 +25,7 @@ function ShoppingCartBill() {
     const [phone, setPhone] = useState('');
     const [fullName, setFullName] = useState('');
 
-    const [selectedMethod, setSelectedMethod] = useState('COD');
-    const handleMethodChange = (event) => {
-        setSelectedMethod(event.target.value);
-    };
+    const [selectedMethod, setSelectedMethod] = useState(1);
 
     const orderItems = cartItems.map((item) => ({
         product_id: item.id,
@@ -41,7 +38,7 @@ function ShoppingCartBill() {
         full_name: fullName,
         address: address,
         phone: phone,
-        transaction: 100,
+        transaction: selectedMethod,
         subtotal: totalPrice,
         order_items: orderItems,
         total: totalPrice,
@@ -55,6 +52,120 @@ function ShoppingCartBill() {
         }
         return true;
     }
+
+    const sendOrder = async (dataSent) => {
+        if (cartItems.length > 0) {
+            try {
+                setLoading(true);
+                const resOrder = await Order(dataSent);
+                if (resOrder.orderResponse.status_code === '910') {
+                    setLoading(false);
+                    toast.error(resOrder.orderResponse.message, {
+                        transition: Flip,
+                        autoClose: 2000,
+                    });
+                    return;
+                }
+                if (resOrder && resOrder.success === true) {
+                    clearCart();
+                    setLoading(false);
+                    toast.success('Successful purchase', {
+                        transition: Flip,
+                        autoClose: 2000,
+                    });
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        } else {
+            toast.error('There are no products in your shopping cart', {
+                transition: Flip,
+                autoClose: 2000,
+            });
+        }
+    };
+
+    const handlePayBill = async (totalPrice) => {
+        if (!areAllValuesNotEmpty(data_order)) {
+            toast.error('Please double check the information to make sure it is not empty', {
+                transition: Flip,
+                autoClose: 2000,
+            });
+            return;
+        }
+        // send api if method COD
+        if (selectedMethod === 1) {
+            sendOrder(data_order);
+            return;
+        }
+
+        //handle method VNPAY
+        if (selectedMethod === 2) {
+            if (cartItems.length > 0) {
+                const newTotal = totalPrice * 20000;
+                console.log(newTotal);
+                try {
+                    const res = await PayOrder(newTotal);
+                    // handle errors
+                    if (res.response.status_code === '910') {
+                        setLoading(false);
+                        toast.error(res.response.message, {
+                            transition: Flip,
+                            autoClose: 2000,
+                        });
+                        return;
+                    }
+
+                    if (res && res.success === true) {
+                        const data_order_JSON = JSON.stringify({
+                            ...data_order,
+                            status_code: res.response.unique_code,
+                        });
+                        const redirectUrl = res.response.url;
+                        localStorage.setItem('data_order', data_order_JSON);
+                        window.location.href = redirectUrl;
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            } else {
+                toast.error('There are no products in your shopping cart', {
+                    transition: Flip,
+                    autoClose: 2000,
+                });
+            }
+
+            return;
+        }
+    };
+
+    const handleMethodChange = (event) => {
+        parseInt();
+        setSelectedMethod(parseInt(event.target.value));
+    };
+
+    const handleEditInfo = () => {
+        setEdit(true);
+        setAddress(data.address);
+        setPhone(data.phone);
+        setFullName(data.full_name);
+    };
+
+    const handleCheckPhone = (value) => {
+        const cleanedNumber = value.replace(/[^\d+]/g, '');
+        if (cleanedNumber.length <= 11) {
+            setPhone(cleanedNumber);
+        }
+    };
+
+    const handleCheckValid = () => {
+        if (!fullName || !phone || !address) {
+            setAddress(data.address);
+            setPhone(data.phone);
+            setFullName(data.full_name);
+        }
+        setEdit(false);
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -74,141 +185,25 @@ function ShoppingCartBill() {
         fetchData();
     }, []);
 
-    const handlePayBill = async (totalPrice) => {
-        if (!areAllValuesNotEmpty(data_order)) {
-            toast.error('Please double check the information to make sure it is not empty', {
-                transition: Flip,
-                autoClose: 2000,
-            });
-            return;
-        }
-
-        // send api if method COD
-        if (selectedMethod === 'COD') {
-            if (cartItems.length > 0) {
-                try {
-                    setLoading(true);
-                    const resOrder = await Order(data_order);
-                    if (resOrder.orderResponse.status_code === '910') {
-                        setLoading(false);
-                        toast.error(resOrder.orderResponse.message, {
-                            transition: Flip,
-                            autoClose: 2000,
-                        });
-                        return;
-                    }
-                    if (resOrder && resOrder.success === true) {
-                        clearCart();
-                        setLoading(false);
-                        toast.success('Successful purchase', {
-                            transition: Flip,
-                            autoClose: 2000,
-                        });
-                    }
-                } catch (error) {
-                    console.log(error);
-                }
-            } else {
-                toast.error('There are no products in your shopping cart', {
-                    transition: Flip,
-                    autoClose: 2000,
-                });
-            }
-            return;
-        }
-
-        //handle method VNPAY
-        if (selectedMethod === 'VNPAY') {
-            const newTotal = totalPrice * 20000;
-            try {
-                const res = await PayOrder(newTotal);
-                // handle errors
-                if (res.response.status_code === '910') {
-                    setLoading(false);
-                    toast.error(res.response.message, {
-                        transition: Flip,
-                        autoClose: 2000,
-                    });
-                    return;
-                }
-
-                if (res && res.success === true) {
-                    const redirectUrl = res.response.url;
-                    if (cartItems.length > 0) {
-                        try {
-                            const resOrder = await Order(data_order);
-                            console.log(resOrder);
-                            if (resOrder && resOrder.success === true && resOrder.orderResponse.status_code !== '910') {
-                                setLoading(false);
-                                window.location.href = redirectUrl;
-                            } else {
-                                if (resOrder.orderResponse.status_code === '910') {
-                                    setLoading(false);
-                                    toast.error(resOrder.orderResponse.message, {
-                                        transition: Flip,
-                                        autoClose: 2000,
-                                    });
-                                    return;
-                                }
-                            }
-                        } catch (error) {
-                            console.log(error);
-                        }
-                    } else {
-                        toast.error('There are no products in your shopping cart', {
-                            transition: Flip,
-                            autoClose: 2000,
-                        });
-                    }
-                }
-            } catch (error) {
-                console.log(error);
-            }
-            return;
-        }
-    };
-
-    const handleEditInfo = () => {
-        setEdit(true);
-        setAddress(data.address);
-        setPhone(data.phone);
-        setFullName(data.full_name);
-    };
-
-    const handleCheckPhone = (value) => {
-        const cleanedNumber = value.replace(/[^\d+]/g, '');
-        if (cleanedNumber.length <= 15) {
-            setPhone(cleanedNumber);
-        }
-    };
-
-    const handleCheckValid = () => {
-        if (!fullName || !phone || !address) {
-            setAddress(data.address);
-            setPhone(data.phone);
-            setFullName(data.full_name);
-        }
-        setEdit(false);
-    };
-
     useEffect(() => {
         setLoading(true);
-        if (params.status == 1) {
-            toast.success('Successful purchase', {
-                transition: Flip,
-                autoClose: 2000,
-            });
-            clearCart();
+        let dataSent = JSON.parse(localStorage.getItem('data_order'));
+        let status = dataSent && dataSent.status_code ? dataSent.status_code : '';
+        if (parseInt(params.status) === parseInt(status)) {
+            sendOrder(dataSent);
+            localStorage.removeItem('data_order');
         }
-        if (params.status == 2) {
+        if (parseInt(params.status) === 2) {
             toast.error('Payment errros', {
                 transition: Flip,
                 autoClose: 2000,
             });
+            localStorage.removeItem('data_order');
         }
+
         const timeoutId = setTimeout(() => {
             setLoading(false);
-        }, 1000);
+        }, 1500);
 
         return () => clearTimeout(timeoutId);
     }, []);
@@ -296,27 +291,6 @@ function ShoppingCartBill() {
             <div className={cx('cart-bill')}>
                 <div className={cx('cart-bill-outner')}>
                     <div className={cx('cart-bill-detail')}>
-                        <span>Sub Total:</span>
-                        <span>
-                            <span className={cx('cart-bill-unit')}>$</span>
-                            <span>{totalPrice.toFixed(2)}</span>
-                        </span>
-                    </div>
-                    <div className={cx('cart-bill-detail')}>
-                        <span>Transport:</span>
-                        <span>
-                            <span>0</span>
-                            <span className={cx('cart-bill-unit')}>$</span>
-                        </span>
-                    </div>
-                    <div className={cx('cart-bill-detail')}>
-                        <span>Discount:</span>
-                        <span>
-                            <span>- {discount}</span>
-                            <span className={cx('cart-bill-percent')}>%</span>
-                        </span>
-                    </div>
-                    <div className={cx('cart-bill-detail')}>
                         <span>Total:</span>
                         <span>
                             <span className={cx('cart-bill-unit')}>$</span>
@@ -329,8 +303,8 @@ function ShoppingCartBill() {
                         <label>
                             <input
                                 type="radio"
-                                value="COD"
-                                checked={selectedMethod === 'COD'}
+                                value="1"
+                                checked={selectedMethod === 1}
                                 onChange={handleMethodChange}
                             />
                             Ship COD
@@ -339,8 +313,8 @@ function ShoppingCartBill() {
                         <label>
                             <input
                                 type="radio"
-                                value="VNPAY"
-                                checked={selectedMethod === 'VNPAY'}
+                                value="2"
+                                checked={selectedMethod === 2}
                                 onChange={handleMethodChange}
                             />
                             VNPAY
