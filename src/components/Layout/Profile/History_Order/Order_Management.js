@@ -91,7 +91,6 @@ const OrderComponent = ({ index, time }) => {
                         <tr className={cx('order-table-title')}>
                             <th>Order #</th>
                             <th>Total</th>
-                            <th>Quantity Item</th>
                             <th>Status Order</th>
                             <th>Payment Status</th>
                             <th>Created At</th>
@@ -104,7 +103,6 @@ const OrderComponent = ({ index, time }) => {
                                 <tr key={index} className={cx('order-table-result')}>
                                     <td>{item.id}</td>
                                     <td>${item.total}</td>
-                                    <td>{item.order_items.length}</td>
                                     <td>{textStatus(item.status)}</td>
                                     <td>{item.transaction_status === 1 ? 'Paid' : 'Unpaid'}</td>
                                     <td>{moment(item.created_at).format('MMMM Do YYYY, h:mm:ss a')}</td>
