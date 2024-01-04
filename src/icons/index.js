@@ -132,7 +132,7 @@ export const Search = ({ width = '2.5rem', height = '2.5rem', className }) => (
     </svg>
 );
 
-export const World = ({ width = '3rem', height = '3rem', className }) => (
+export const World = ({ width = '2.6rem', height = '2.6rem', className }) => (
     <svg
         height={height}
         width={width}
@@ -141,15 +141,11 @@ export const World = ({ width = '3rem', height = '3rem', className }) => (
         fill="currentColor"
         xmlns="http://www.w3.org/2000/svg"
     >
-        <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M256 0Q150 0 75 75T0 256t75 181t181 75t181-75t75-181t-75-181T256 0M109 331q21 53 21 96q-40-28-63.5-73.5T43 256q0-103 81-166q18 14 33 36.5t14 42.5q-4 31-41 61q-19 20-25.5 47.5T109 331m360-75q0 88-62.5 150.5T256 469q-44 0-83-17q5-65-26-136q-11-34 13-54q50-50 53-89q6-54-51-109q39-21 94-21q26 0 49 6l-43 43l-15 15l62 62l150 21q10 35 10 66M331 130l-24-23l43-43q55 26 87 81zm-62 90l-17 25q-20 32-5 64l9 20l15 72q3 23 28 30q4 2 10 2q15 0 28-11l24-23l2-4q15-56 34-75q27-19 15-68q-7-27-37-39l-51-21h-4q-35 0-51 28m19 49l17-26q4-8 13-8l43 15q8 4 8 8q2 7 2 24q-27 20-49 91l-11 11l-12-68l-13-26q-6-9 2-21"
-        ></path>
+        <path d="M57.7 193l9.4 16.4c8.3 14.5 21.9 25.2 38 29.8L163 255.7c17.2 4.9 29 20.6 29 38.5v39.9c0 11 6.2 21 16 25.9s16 14.9 16 25.9v39c0 15.6 14.9 26.9 29.9 22.6c16.1-4.6 28.6-17.5 32.7-33.8l2.8-11.2c4.2-16.9 15.2-31.4 30.3-40l8.1-4.6c15-8.5 24.2-24.5 24.2-41.7v-8.3c0-12.7-5.1-24.9-14.1-33.9l-3.9-3.9c-9-9-21.2-14.1-33.9-14.1H257c-11.1 0-22.1-2.9-31.8-8.4l-34.5-19.7c-4.3-2.5-7.6-6.5-9.2-11.2c-3.2-9.6 1.1-20 10.2-24.5l5.9-3c6.6-3.3 14.3-3.9 21.3-1.5l23.2 7.7c8.2 2.7 17.2-.4 21.9-7.5c4.7-7 4.2-16.3-1.2-22.8l-13.6-16.3c-10-12-9.9-29.5 .3-41.3l15.7-18.3c8.8-10.3 10.2-25 3.5-36.7l-2.4-4.2c-3.5-.2-6.9-.3-10.4-.3C163.1 48 84.4 108.9 57.7 193zM464 256c0-36.8-9.6-71.4-26.4-101.5L412 164.8c-15.7 6.3-23.8 23.8-18.5 39.8l16.9 50.7c3.5 10.4 12 18.3 22.6 20.9l29.1 7.3c1.2-9 1.8-18.2 1.8-27.5zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z" />
     </svg>
 );
 
-export const User = ({ width = '3rem', height = '3rem', className }) => (
+export const User = ({ width = '2.6rem', height = '2.6rem', className }) => (
     <svg
         height={height}
         width={width}
@@ -166,24 +162,20 @@ export const User = ({ width = '3rem', height = '3rem', className }) => (
     </svg>
 );
 
-export const Coffee = ({ width = '3rem', height = '3rem', className }) => (
+export const Coffee = ({ width = '2.6rem', height = '2.6rem', className }) => (
     <svg
         height={height}
         width={width}
         className={className}
-        viewBox="0 0 16 16"
+        viewBox="0 0 640 512"
         fill="currentColor"
         xmlns="http://www.w3.org/2000/svg"
     >
-        <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="m14 13l-4 1H4l-4-1v-1h14zm.7-10H13V2H1v5c0 1.5.8 2.8 2 3.4v.6h8v-.6c.9-.5 1.6-1.4 1.9-2.4h.1c2.3 0 2.9-2 3-3.5c.1-.8-.5-1.5-1.3-1.5M13 7V4h1.7c.1 0 .2.1.2.1s.1.1.1.3C14.8 7 13.4 7 13 7"
-        ></path>
+        <path d="M96 64c0-17.7 14.3-32 32-32H448h64c70.7 0 128 57.3 128 128s-57.3 128-128 128H480c0 53-43 96-96 96H192c-53 0-96-43-96-96V64zM480 224h32c35.3 0 64-28.7 64-64s-28.7-64-64-64H480V224zM32 416H544c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32z" />
     </svg>
 );
 
-export const Eye = ({ width = '3rem', height = '3rem', className }) => (
+export const Eye = ({ width = '2.6rem', height = '2.6rem', className }) => (
     <svg
         height={height}
         width={width}
@@ -200,19 +192,3 @@ export const Eye = ({ width = '3rem', height = '3rem', className }) => (
     </svg>
 );
 
-export const Calendar = ({ width = '2rem', height = '1.6rem', className }) => (
-    <svg
-        height={height}
-        width={width}
-        className={className}
-        viewBox="0 0 1024 1024"
-        fill="#f42a2a"
-        xmlns="http://www.w3.org/2000/svg"
-    >
-        <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M128 384v512h768V192H768v32a32 32 0 1 1-64 0v-32H320v32a32 32 0 0 1-64 0v-32H128v128h768v64zm192-256h384V96a32 32 0 1 1 64 0v32h160a32 32 0 0 1 32 32v768a32 32 0 0 1-32 32H96a32 32 0 0 1-32-32V160a32 32 0 0 1 32-32h160V96a32 32 0 0 1 64 0zm-32 384h64a32 32 0 0 1 0 64h-64a32 32 0 0 1 0-64m0 192h64a32 32 0 1 1 0 64h-64a32 32 0 1 1 0-64m192-192h64a32 32 0 0 1 0 64h-64a32 32 0 0 1 0-64m0 192h64a32 32 0 1 1 0 64h-64a32 32 0 1 1 0-64m192-192h64a32 32 0 1 1 0 64h-64a32 32 0 1 1 0-64m0 192h64a32 32 0 1 1 0 64h-64a32 32 0 1 1 0-64"
-        ></path>
-    </svg>
-);

@@ -49,7 +49,7 @@ const About = () => {
                             title={'Export'}
                             icon={<World className={cx('about-quanlity-icon')} />}
                             text={
-                                'Explore global tastes with our meticulously sourced dry fruits. From exotic origins to your doorstep, our collection brings international flavors to elevate your snacking experience.'
+                                'Explore global tastes with our dried fruits. From exotic origins to your doorstep, bringing international flavors to enhance your snacking experience.'
                             }
                         />
                         <AboutItem

@@ -53,6 +53,10 @@
                 }
 
                 .premium-product-description {
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                    -webkit-line-clamp: 3;
                     width: 100%;
                     text-align: center;
                     margin-bottom: 20px;
