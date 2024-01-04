@@ -11,7 +11,7 @@ const DetailComment = ({ content, star, userName }) => {
     return (
         <div className={cx('detail-comment-container')}>
             <div className={cx('detail-comment-wrapper')}>
-                <p className={cx('detail-comment-level')}>{userName}</p>
+                <p className={cx('detail-comment-name')}>{userName}</p>
                 <div className={cx('detail-comment-star')}>
                     {Array.from({ length: 5 }).map((_, index) =>
                         index < star ? (

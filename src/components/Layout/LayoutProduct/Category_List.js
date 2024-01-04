@@ -31,7 +31,7 @@ const CategoryList = ({ getIdCategory }) => {
     }, []);
 
     const handleIdCategory = (msd) => {
-        if (msd == active) {
+        if (msd === active) {
             return;
         }
         setLoading(true);
@@ -53,7 +53,7 @@ const CategoryList = ({ getIdCategory }) => {
                     </div>
                     <div className={cx('category-filter')}>
                         <div
-                            className={active == 0 ? cx('filter-link', 'active') : cx('filter-link')}
+                            className={active === 0 ? cx('filter-link', 'active') : cx('filter-link')}
                             onClick={() => handleIdCategory(0)}
                         >
                             All
@@ -66,7 +66,7 @@ const CategoryList = ({ getIdCategory }) => {
                                     return (
                                         <div
                                             className={
-                                                active == item.id ? cx('filter-link', 'active') : cx('filter-link')
+                                                active === item.id ? cx('filter-link', 'active') : cx('filter-link')
                                             }
                                             key={index}
                                             onClick={() => handleIdCategory(item.id)}

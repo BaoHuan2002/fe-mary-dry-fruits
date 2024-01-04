@@ -123,7 +123,7 @@ const DetailItem = () => {
                                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                                     className={cx('detail-info-btn-action')}
                                 >
-                                    -
+                                    <span className={cx('detail-apart')}>-</span>
                                 </button>
                                 <p className={cx('detail-info-amount')}>{quantity}</p>
                                 <button
@@ -156,7 +156,6 @@ const DetailItem = () => {
                 </div>
 
                 <div className={cx('detail-content')}>
-                    {' '}
                     {zoneDetails === 1 ? (
                         <div dangerouslySetInnerHTML={{ __html: item.description }} className={cx('plr-40')} />
                     ) : (
@@ -165,36 +164,40 @@ const DetailItem = () => {
                     {zoneDetails === 2 ? <div dangerouslySetInnerHTML={{ __html: item.nutrition_detail }} /> : ''}
                     {zoneDetails === 3 ? (
                         <div className={cx('detail-evaluate')}>
-                            <DetailReview />
-
+                            <DetailReview star={item.star} />
                             <div className={cx('detail-form')}>
-                                {item.reviews.length !== 0 ? (
-                                    item.reviews.map((element, index) => {
-                                        return (
-                                            <DetailComment
-                                                content={element.content}
-                                                star={element.star}
-                                                key={index}
-                                                userName={element.user.full_name}
-                                            />
-                                        );
-                                    })
+                                {item.reviews.length > 0 ? (
+                                    item.reviews.map((element, index) => (
+                                        <DetailComment
+                                            content={element.content}
+                                            star={element.star}
+                                            key={index}
+                                            userName={element.user.full_name}
+                                        />
+                                    ))
                                 ) : (
-                                    <h2 className={cx('title-no-coment')}>This product has no comments yet</h2>
+                                    <div className={cx('container-no-coment')}>
+                                        <h2 className={cx('title-no-coment')}>This product has no comments yet</h2>
+                                        {textNotifi}
+                                    </div>
                                 )}
-
+                            </div>
+                            {checkPermision === true ? (
                                 <CommentProduct
                                     id={item.id}
                                     permission={checkPermision}
                                     text={textNotifi}
                                     reload={fetchData}
                                 />
-                            </div>
+                            ) : (
+                                ''
+                            )}
                         </div>
                     ) : (
                         ''
                     )}
                 </div>
+
                 <div className={cx('container-slider')}>
                     <BestProductsIndex />
                 </div>

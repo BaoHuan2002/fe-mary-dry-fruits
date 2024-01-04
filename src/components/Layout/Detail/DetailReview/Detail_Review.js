@@ -11,13 +11,15 @@ const DetailReview = ({ star }) => {
             <h6 className={cx('detail-review-title')}>Over View</h6>
             <div className={cx('detail-review-star')}>
                 <span className={cx('detail-review-amount')}>{star}</span>
-                {Array.from({ length: 5 }).map((_, index) =>
-                    index < star ? (
-                        <StarCheck key={index} className={cx('check')} />
-                    ) : (
-                        <Star key={index} className={cx('no-check')} />
-                    ),
-                )}
+                <div className={cx('detail-review-star-check')}>
+                    {Array.from({ length: 5 }).map((_, index) =>
+                        index < star ? (
+                            <StarCheck key={index} className={cx('check')} />
+                        ) : (
+                            <Star key={index} className={cx('no-check')} />
+                        ),
+                    )}
+                </div>
             </div>
         </div>
     );

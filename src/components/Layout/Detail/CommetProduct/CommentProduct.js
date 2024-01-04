@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import styles from './CommentProduct.module.scss';
 import axios from '@/service/axios';
 import { toast, Flip } from 'react-toastify';
+import Button from '@/components/Button/ButtonIndex';
 
 const cx = classNames.bind(styles);
 
@@ -38,12 +39,11 @@ const CommentProduct = ({ id, permission, text, reload }) => {
                 });
                 return;
             }
-            
+
             let res = await axios.post('/api/review/review', {
                 content: data.content,
                 star: data.star >= 1 ? data.star : 5,
                 product_id: data.product_id,
-
             });
             reload();
         } catch (error) {
@@ -54,22 +54,32 @@ const CommentProduct = ({ id, permission, text, reload }) => {
     return (
         <div className={cx('container-comment')}>
             <div className={cx('star')}>
-                <span>Quality Evalution: </span>{' '}
-                {Array.from({ length: 5 }).map((_, index) =>
-                    index < data.star ? (
-                        <div onClick={() => handleChooseStar(index + 1)} key={index}>
-                            <StarCheck className={cx('check')} />
-                        </div>
-                    ) : (
-                        <div onClick={() => handleChooseStar(index + 1)} key={index}>
-                            <Star key={index} className={cx('no-check')} />
-                        </div>
-                    ),
-                )}
+                <span className={cx('star-comment')}>Quality Evalution: </span>{' '}
+                <div className={cx('star-check')}>
+                    {Array.from({ length: 5 }).map((_, index) =>
+                        index < data.star ? (
+                            <div onClick={() => handleChooseStar(index + 1)} key={index}>
+                                <StarCheck className={cx('check')} />
+                            </div>
+                        ) : (
+                            <div onClick={() => handleChooseStar(index + 1)} key={index}>
+                                <Star key={index} className={cx('no-check')} />
+                            </div>
+                        ),
+                    )}
+                </div>
             </div>
             <div className={cx('comment-product')}>
-                <textarea placeholder="Comment" value={data.content} onChange={(e) => handleContent(e)}></textarea>
-                <button onClick={handleComment}>Submit</button>
+                <textarea
+                    placeholder="Comment"
+                    className={cx('comment-area')}
+                    value={data.content}
+                    onChange={(e) => handleContent(e)}
+                ></textarea>
+                <div onClick={handleComment} className={cx('comment-btn')}>
+                    <Button text={'Submit'} blackText />
+                </div>
+                {text}
             </div>
         </div>
     );

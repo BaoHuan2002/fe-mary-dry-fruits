@@ -16,7 +16,6 @@ const ContactLocation = () => {
                     (position) => {
                         const { latitude, longitude } = position.coords;
                         setLocation({ latitude, longitude });
-                        console.log(location);
                     },
                     (err) => {
                         setError(err.message);

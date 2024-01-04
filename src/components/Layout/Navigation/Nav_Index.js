@@ -42,16 +42,18 @@ function NavBarIndex() {
         handleResize();
         window.addEventListener('resize', handleResize);
 
-        const fetchData = async () => {
-            try {
-                const res = await dataUser();
-                if (res && res.success === true) {
-                    setDataName(res.response.full_name);
-                }
-            } catch (error) {}
-        };
+        if (token) {
+            const fetchData = async () => {
+                try {
+                    const res = await dataUser();
+                    if (res && res.success === true) {
+                        setDataName(res.response.full_name);
+                    }
+                } catch (error) {}
+            };
 
-        fetchData();
+            fetchData();
+        }
 
         return () => {
             window.removeEventListener('resize', handleResize);
