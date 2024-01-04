@@ -1,5 +1,3 @@
-import React from 'react';
-
 import classNames from 'classnames/bind';
 import styles from '../Detail.module.scss';
 
@@ -7,7 +5,7 @@ import { Star, StarCheck } from '@/icons';
 
 const cx = classNames.bind(styles);
 
-const DetailComment = ({ content, star, userName }) => {
+const DetailHistoryComment = ({ content, star, userName }) => {
     return (
         <div className={cx('detail-comment-container')}>
             <div className={cx('detail-comment-wrapper')}>
@@ -27,4 +25,4 @@ const DetailComment = ({ content, star, userName }) => {
     );
 };
 
-export default DetailComment;
+export default DetailHistoryComment;

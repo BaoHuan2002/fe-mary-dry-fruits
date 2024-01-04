@@ -4,9 +4,9 @@ import axios from '@/service/axios';
 import classNames from 'classnames/bind';
 import styles from './Detail.module.scss';
 import BestProductsIndex from '../Main/BestProducts/Best_Product_Index';
-import DetailReview from './DetailReview/Detail_Review';
-import DetailComment from './DetailReview/Detail_Comment';
-import CommentProduct from './CommetProduct/CommentProduct';
+import DetailReview from './Detail_Item/Detail_Review';
+import DetailHistoryComment from './Detail_Item/Detail_History_Comment';
+import UserComment from './Detail_Item/Detail_User_Comment';
 import { useShoppingContext } from '@/contexts/Shopping_Context';
 import { useParams } from 'react-router-dom';
 import { StarCheck, Star } from '@/icons';
@@ -167,23 +167,36 @@ const DetailItem = () => {
                             <DetailReview star={item.star} />
                             <div className={cx('detail-form')}>
                                 {item.reviews.length > 0 ? (
-                                    item.reviews.map((element, index) => (
-                                        <DetailComment
-                                            content={element.content}
-                                            star={element.star}
-                                            key={index}
-                                            userName={element.user.full_name}
-                                        />
-                                    ))
+                                    <div>
+                                        {item.reviews.map((element, index) => (
+                                            <>
+                                                <DetailHistoryComment
+                                                    content={element.content}
+                                                    star={element.star}
+                                                    key={index}
+                                                    userName={element.user.full_name}
+                                                />
+                                            </>
+                                        ))}
+                                        {checkPermision === true ? (
+                                            ''
+                                        ) : (
+                                            <div className={cx('detail-noti')}>{textNotifi}</div>
+                                        )}
+                                    </div>
                                 ) : (
-                                    <div className={cx('container-no-coment')}>
-                                        <h2 className={cx('title-no-coment')}>This product has no comments yet</h2>
-                                        {textNotifi}
+                                    <div className={cx('container-no-comment')}>
+                                        <h2 className={cx('title-no-comment')}>This product has no comments yet</h2>
+                                        {checkPermision === true ? (
+                                            ''
+                                        ) : (
+                                            <div className={cx('detail-noti')}>{textNotifi}</div>
+                                        )}
                                     </div>
                                 )}
                             </div>
                             {checkPermision === true ? (
-                                <CommentProduct
+                                <UserComment
                                     id={item.id}
                                     permission={checkPermision}
                                     text={textNotifi}

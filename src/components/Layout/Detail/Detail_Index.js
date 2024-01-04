@@ -1,4 +1,4 @@
-import DetailItem from './Detail_Item';
+import DetailItem from './Detail_Layout';
 import Header from '../Header/Header_Index';
 
 const Detail = () => {

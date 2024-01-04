@@ -1,14 +1,15 @@
 import { StarCheck, Star } from '@/icons';
 import { useState } from 'react';
-import classNames from 'classnames/bind';
-import styles from './CommentProduct.module.scss';
-import axios from '@/service/axios';
 import { toast, Flip } from 'react-toastify';
+import axios from '@/service/axios';
 import Button from '@/components/Button/ButtonIndex';
+
+import classNames from 'classnames/bind';
+import styles from '../Detail.module.scss';
 
 const cx = classNames.bind(styles);
 
-const CommentProduct = ({ id, permission, text, reload }) => {
+const UserComment = ({ id, permission, text, reload }) => {
     const [data, setData] = useState({
         content: '',
         product_id: id,
@@ -45,6 +46,12 @@ const CommentProduct = ({ id, permission, text, reload }) => {
                 star: data.star >= 1 ? data.star : 5,
                 product_id: data.product_id,
             });
+            if(res){
+                toast.success('Send Comment Successfully', {
+                    transition: Flip,
+                    autoClose: 2000,
+                });
+            }
             reload();
         } catch (error) {
             console.error('Comment error:', error);
@@ -52,10 +59,10 @@ const CommentProduct = ({ id, permission, text, reload }) => {
     };
 
     return (
-        <div className={cx('container-comment')}>
-            <div className={cx('star')}>
-                <span className={cx('star-comment')}>Quality Evalution: </span>{' '}
-                <div className={cx('star-check')}>
+        <div className={cx('user-comment-container')}>
+            <div className={cx('user-comment-wrapper')}>
+                <span className={cx('user-comment-title')}>Quality Evalution: </span>{' '}
+                <div className={cx('user-comment-star')}>
                     {Array.from({ length: 5 }).map((_, index) =>
                         index < data.star ? (
                             <div onClick={() => handleChooseStar(index + 1)} key={index}>
@@ -69,14 +76,14 @@ const CommentProduct = ({ id, permission, text, reload }) => {
                     )}
                 </div>
             </div>
-            <div className={cx('comment-product')}>
+            <div className={cx('user-comment-main')}>
                 <textarea
                     placeholder="Comment"
-                    className={cx('comment-area')}
+                    className={cx('user-comment-area')}
                     value={data.content}
                     onChange={(e) => handleContent(e)}
                 ></textarea>
-                <div onClick={handleComment} className={cx('comment-btn')}>
+                <div onClick={handleComment} className={cx('user-comment-btn')}>
                     <Button text={'Submit'} blackText />
                 </div>
                 {text}
@@ -85,4 +92,4 @@ const CommentProduct = ({ id, permission, text, reload }) => {
     );
 };
 
-export default CommentProduct;
+export default UserComment;

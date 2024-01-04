@@ -86,11 +86,6 @@
                 border-radius: 7px;
                 margin: 5px 0;
                 padding: 15px;
-                transition: background-color 0.3s liner;
-                &:hover {
-                    cursor: pointer;
-                    filter: brightness(105%);
-                }
 
                 .truck-icon {
                     color: #00b517;
@@ -99,29 +94,6 @@
 
                 .cart-transport-text {
                     color: #149680;
-                }
-            }
-            .cart-transport-fast {
-                background-color: #82d2f3;
-                transition: background-color 0.3s liner;
-                &:hover {
-                    cursor: pointer;
-                    filter: brightness(105%);
-                }
-
-                .truck-icon {
-                    color: #1f9bcf;
-                    margin-right: 10px;
-                }
-
-                .cart-transport-text {
-                    color: #25768f;
-                }
-
-                .cart-transport-check {
-                    display: flex;
-                    width: 74%;
-                    justify-content: end;
                 }
             }
         }
