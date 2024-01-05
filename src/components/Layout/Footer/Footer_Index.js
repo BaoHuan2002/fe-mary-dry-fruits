@@ -53,7 +53,7 @@ function FooterIndex() {
                     <FooterItem
                         title={'Information'}
                         item_1={{ name: 'Social Network', link: '/contact' }}
-                        item_2={{ name: 'Categoty Product', link: '/about' }}
+                        item_2={{ name: 'Categoty Product', link: '/product' }}
                         item_3={{ name: 'Store Location', link: '/contact' }}
                         item_4={{ name: 'Orders & Returns ', link: '/contact' }}
                     />
