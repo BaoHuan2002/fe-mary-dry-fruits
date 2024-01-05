@@ -25,6 +25,7 @@ const Main = () => {
                 const resParallaxBanner = await Banner(3);
                 const resTopProduct = await topProduct();
                 const resPremiumProduct = await premiumProduct();
+                window.scrollTo(0,0);
 
                 if (resSliderBanner.success && resSliderBanner.response) {
                     setSliderBanners(resSliderBanner.response);
