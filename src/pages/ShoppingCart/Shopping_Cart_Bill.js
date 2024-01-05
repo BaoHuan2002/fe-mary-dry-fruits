@@ -173,7 +173,7 @@ function ShoppingCartBill() {
         const fetchData = async () => {
             try {
                 const res = await dataUser();
-                if (res && res.success === true && res.status === 1) {
+                if (res && res.success === true && res.response.status === 1) {
                     setData(res.response);
                     setAddress(res.response.address);
                     setPhone(res.response.phone);
