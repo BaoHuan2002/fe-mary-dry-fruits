@@ -1,6 +1,4 @@
 /* eslint-disable no-unused-vars */
-import classNames from 'classnames/bind';
-import styles from './Shopping_Cart.module.scss';
 import images from '@/assets';
 import { useShoppingContext } from '@/contexts/Shopping_Context';
 import { useState, useEffect } from 'react';
@@ -8,10 +6,10 @@ import { Order, PayOrder } from '@/service/Order_Service';
 import { dataUser } from '@/service/User_Service';
 import { toast, Flip } from 'react-toastify';
 import Loading from '@/components/Layout/Loading/Loading';
-
 import { useNavigate, useParams } from 'react-router-dom';
-import { compileString } from 'sass';
 
+import classNames from 'classnames/bind';
+import styles from './Shopping_Cart.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -175,7 +173,7 @@ function ShoppingCartBill() {
         const fetchData = async () => {
             try {
                 const res = await dataUser();
-                if (res && res.success === true) {
+                if (res && res.success === true && res.status === 1) {
                     setData(res.response);
                     setAddress(res.response.address);
                     setPhone(res.response.phone);
