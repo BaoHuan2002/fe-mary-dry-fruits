@@ -157,11 +157,19 @@ const DetailItem = () => {
 
                 <div className={cx('detail-content')}>
                     {zoneDetails === 1 ? (
-                        <div dangerouslySetInnerHTML={{ __html: item.description }} className={cx('plr-40')} />
+                        <div className={cx('detail-product-container')}>
+                            <div dangerouslySetInnerHTML={{ __html: item.description }} className={cx('plr-40')} />
+                        </div>
                     ) : (
                         ''
                     )}
-                    {zoneDetails === 2 ? <div dangerouslySetInnerHTML={{ __html: item.nutrition_detail }} /> : ''}
+                    {zoneDetails === 2 ? (
+                        <div className={cx('detail-product-container')}>
+                            <div dangerouslySetInnerHTML={{ __html: item.nutrition_detail }} />
+                        </div>
+                    ) : (
+                        ''
+                    )}
                     {zoneDetails === 3 ? (
                         <div className={cx('detail-evaluate')}>
                             <DetailReview star={item.star} />
