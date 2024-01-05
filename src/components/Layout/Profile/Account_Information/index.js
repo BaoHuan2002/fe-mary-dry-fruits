@@ -10,6 +10,7 @@ import images from '@/assets';
 import Loading from '../../Loading/Loading';
 import { useNavigate } from 'react-router-dom';
 import { toast, Flip } from 'react-toastify';
+import { useShoppingContext } from '@/contexts/Shopping_Context';
 
 const cx = classNames.bind(styles);
 
@@ -33,36 +34,35 @@ const AccountInformation = () => {
     const [errorAddress, setErrorAddress] = useState('');
 
     const navigate = useNavigate();
-    const check = localStorage.getItem('jwt');
+    const { clearCart } = useShoppingContext();
 
     useEffect(() => {
-        if (!check) {
-            navigate('/account/login');
-        } else {
-            const fetchData = async () => {
-                try {
-                    let res = await dataUser();
-                    if (res && res.response) {
-                        let phone = res.response.phone || '';
-                        let address = res.response.address || '';
-                        let fullName = res.response.full_name || '';
-                        getData(res.response);
-                        setNewFullName(fullName);
-                        setNewPhone(phone);
-                        setNewAddress(address);
-                    } else {
-                        getData([]);
-                    }
-                } catch (error) {
-                    console.log('error', error);
+        const fetchData = async () => {
+            try {
+                let res = await dataUser();
+                if (res && res.success === true && res.response.status === 1) {
+                    let phone = res.response.phone || '';
+                    let address = res.response.address || '';
+                    let fullName = res.response.full_name || '';
+                    getData(res.response);
+                    setNewFullName(fullName);
+                    setNewPhone(phone);
+                    setNewAddress(address);
+                } else {
+                    getData([]);
+                    localStorage.removeItem('jwt');
+                    clearCart();
                     navigate('/account/login');
-                } finally {
-                    setLoading(false);
-                    window.scrollTo(0,0);
                 }
-            };
-            fetchData();
-        }
+            } catch (error) {
+                console.log('error', error);
+                navigate('/account/login');
+            } finally {
+                setLoading(false);
+                window.scrollTo(0, 0);
+            }
+        };
+        fetchData();
     }, []);
 
     const handleAvatarChange = (e) => {

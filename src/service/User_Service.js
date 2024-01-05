@@ -16,7 +16,6 @@ const loginUser = async (email, password) => {
         const response = await axios.post(loginUrl, loginData, { headers });
 
         return {
-            success: true,
             response: response,
         };
     } catch (error) {

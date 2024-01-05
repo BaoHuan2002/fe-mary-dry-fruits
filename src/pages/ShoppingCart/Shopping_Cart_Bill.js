@@ -179,6 +179,8 @@ function ShoppingCartBill() {
                     setPhone(res.response.phone);
                     setFullName(res.response.full_name);
                 }else{
+                    localStorage.removeItem('jwt')
+                    clearCart();
                     navigate('/account/login');
                 }
             } catch (error) {
@@ -186,7 +188,6 @@ function ShoppingCartBill() {
                 console.log(error);
             }
         };
-
         fetchData();
     }, []);
 
