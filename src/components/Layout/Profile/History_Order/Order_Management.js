@@ -200,13 +200,7 @@ const OrderComponent = ({ index, time }) => {
                                         <span>{textStatus(orderDetail.status)}</span>
                                     </div>
                                 </div>
-                                <div className={cx('history-order-item')}>
-                                    <span className={cx('history-order-sup')}>SubTotal</span>
-                                    <div className={cx('history-order-des')}>
-                                        <span>:</span>
-                                        <span>${orderDetail.subtotal}</span>
-                                    </div>
-                                </div>
+                               
                                 {orderDetail.discount ? (
                                     <div className={cx('history-order-item')}>
                                         <span className={cx('history-order-sup')}>Discount Amount</span>
