@@ -43,25 +43,11 @@ function ShoppingCartPage() {
                         </div>
                         <div className={cx('cart-option')}>
                             <Button text={'Continue shopping'} blackText link={'/product'} />
-                            <span onClick={() => setShow(!show)}>
-                                <Button text={'Special Offers'} blackText />
-                            </span>
                         </div>
-                        {show === false ? (
-                            <div className={cx('cart-transport-normal')}>
-                                <span>
-                                    <FontAwesomeIcon
-                                        icon={icon({ name: 'truck', style: 'solid' })}
-                                        className={cx('truck-icon')}
-                                    />
-                                </span>
-                                <span className={cx('cart-transport-text')}>Free Delivery On Orders $20.00 Or More </span>
-                            </div>
-                        ) : null}
+                        
                     </div>
 
                     <div className={cx('cart-info-pay')}>
-                        
                         <ShoppingCartBill />
                     </div>
                 </div>
