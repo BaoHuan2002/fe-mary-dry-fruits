@@ -68,7 +68,6 @@ const LoginForm = () => {
                 setMessErrorEmail('');
                 setErrorHeightEmail(false);
                 let res = await loginUser(email, password);
-                console.log(res);
 
                 if (res && res.response && res.response.access_token !== undefined && res.response.access_token !== null && res.response.access_token !== '') {
                     localStorage.setItem('jwt', res.response.access_token);
@@ -87,7 +86,7 @@ const LoginForm = () => {
 
                         try {
                             const res = await loginUser(email, password);
-                            if (res && res.success === true) {
+                            if (res && res.response && res.response.access_token !== undefined && res.response.access_token !== null && res.response.access_token !== '') {
                                 localStorage.setItem('jwt', res.response.access_token);
                             } else {
                                 navigate('/account/login');
