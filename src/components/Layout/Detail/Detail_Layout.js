@@ -53,7 +53,7 @@ const DetailItem = () => {
             const res = await axios.post('api/product/product_details', { product_id: id });
             if (res && res.data) {
                 let id = res.data[0].id;
-                setItem({ ...res.data[0], weight: 250 });
+                setItem({ ...res.data[0], weight: res.data[0].weight_tags[0].mass });
                 handleCheckPermission(id);
             } else {
                 setItem({});
