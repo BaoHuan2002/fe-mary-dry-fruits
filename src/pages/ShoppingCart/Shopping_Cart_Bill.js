@@ -8,24 +8,25 @@ import { Order, PayOrder } from '@/service/Order_Service';
 import { dataUser } from '@/service/User_Service';
 import { toast, Flip } from 'react-toastify';
 import Loading from '@/components/Layout/Loading/Loading';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function ShoppingCartBill() {
     const params = useParams();
     const { totalPrice, cartItems, clearCart } = useShoppingContext();
-    const [discount, setDiscount] = useState(0);
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState('');
-
+    
     const [edit, setEdit] = useState(false);
-
+    
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
     const [fullName, setFullName] = useState('');
-
+    
     const [selectedMethod, setSelectedMethod] = useState(1);
+
+    const navigate = useNavigate();
 
     const orderItems = cartItems.map((item) => ({
         product_id: item.id,
@@ -176,8 +177,11 @@ function ShoppingCartBill() {
                     setAddress(res.response.address);
                     setPhone(res.response.phone);
                     setFullName(res.response.full_name);
+                }else{
+                    navigate('/account/login');
                 }
             } catch (error) {
+                navigate('/account/login');
                 console.log(error);
             }
         };
@@ -290,15 +294,19 @@ function ShoppingCartBill() {
 
             <div className={cx('cart-bill')}>
                 <div className={cx('cart-bill-outner')}>
-                    <div className={cx('cart-bill-detail')}>
+                    <div className={cx('cart-bill-heading')}>
+                        <p>Payment orders</p>
+                    </div>
+                    <div className={cx('cart-bill-total')}>
                         <span>Total:</span>
                         <span>
                             <span className={cx('cart-bill-unit')}>$</span>
                             <span>{totalPrice.toFixed(2)}</span>
                         </span>
                     </div>
+                    {/* <div className={cx('cart-bill-description')}>* Shipping information and discounts are announced in the detailed invoice</div> */}
                     {/* choose method pay */}
-                    <h4>Select payment method:</h4>
+                    <h4 className={cx('cart-bill-title')}>Select Payment Method:</h4>
                     <div className={cx('cart-bill-detail')}>
                         <label>
                             <input

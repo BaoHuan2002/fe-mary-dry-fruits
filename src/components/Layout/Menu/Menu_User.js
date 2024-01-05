@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { logoutUser } from '@/service/User_Service';
 import { toast, Flip } from 'react-toastify';
 import { useShoppingContext } from '@/contexts/Shopping_Context';
+
 import classNames from 'classnames/bind';
 import styles from './Menu.module.scss';
 
@@ -12,15 +13,15 @@ const cx = classNames.bind(styles);
 
 function MenuUser() {
     const navigate = useNavigate();
-    const { setCheckLogin } = useShoppingContext();
+
+    const { clearCart } = useShoppingContext();
 
     const handleLogout = async () => {
         let res = await logoutUser();
 
         if (res && res.success === true) {
             localStorage.removeItem('jwt');
-            localStorage.removeItem('login');
-            // setCheckLogin(false);
+            clearCart();
             navigate('/account/login');
 
             toast.success('Logout success', {
