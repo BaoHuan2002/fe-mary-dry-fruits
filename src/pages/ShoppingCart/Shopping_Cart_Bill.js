@@ -8,11 +8,13 @@ import { Order, PayOrder } from '@/service/Order_Service';
 import { dataUser } from '@/service/User_Service';
 import { toast, Flip } from 'react-toastify';
 import Loading from '@/components/Layout/Loading/Loading';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { compileString } from 'sass';
 
 const cx = classNames.bind(styles);
 
 function ShoppingCartBill() {
+    const navigate = useNavigate();
     const params = useParams();
     const { totalPrice, cartItems, clearCart } = useShoppingContext();
     const [discount, setDiscount] = useState(0);
@@ -189,18 +191,27 @@ function ShoppingCartBill() {
         setLoading(true);
         let dataSent = JSON.parse(localStorage.getItem('data_order'));
         let status = dataSent && dataSent.status_code ? dataSent.status_code : '';
-        if (parseInt(params.status) === parseInt(status)) {
+        let isTrue = true;
+        if (params.status === status) {
             sendOrder(dataSent);
             localStorage.removeItem('data_order');
+            isTrue = false;
+            console.log(false);
         }
-        if (parseInt(params.status) === 2) {
+        if (params.status === '2') {
             toast.error('Payment errros', {
                 transition: Flip,
                 autoClose: 2000,
             });
             localStorage.removeItem('data_order');
+            isTrue = false;
+            console.log(false);
         }
 
+        if (params.status && isTrue) {
+            console.log(true);
+            navigate('/*');
+        }
         const timeoutId = setTimeout(() => {
             setLoading(false);
         }, 1500);
