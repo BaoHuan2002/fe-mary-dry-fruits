@@ -111,7 +111,7 @@ const OrderComponent = ({ index, time }) => {
                                             onClick={() => handleGetHistory(item.id)}
                                             className={cx('order-table-btn')}
                                         >
-                                            <Button text={'See Details'} blackText />
+                                            <Button text={'Details'} blackText />
                                         </span>
                                     </td>
                                 </tr>

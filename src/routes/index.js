@@ -9,6 +9,7 @@ import Detail from '@/components/Layout/Detail/Detail_Index';
 import ProfilePage from '@/pages/ProfilePage';
 import AboutUsPage from '@/pages/AboutUsPage';
 import TermsPage from '@/pages/TermsPage';
+import ErrorPage from '@/pages/ErrorPage/ErrorPage';
 
 const routes = [
     { path: '/', component: HomePage },
@@ -23,6 +24,7 @@ const routes = [
     { path: '/account/profile', component: ProfilePage },
     { path: '/cart', component: ShoppingCartPage },
     { path: '/cart/:status', component: ShoppingCartPage },
+    { path: '/*', component: ErrorPage },
 ];
 
 export default routes;

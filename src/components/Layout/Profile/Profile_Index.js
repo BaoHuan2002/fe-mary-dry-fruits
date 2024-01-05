@@ -41,7 +41,7 @@ const ProfileIndex = () => {
                 <div className={cx('profile-info-user')}>
                     <div className={cx('profile-info-outner-title')}>
                         {[
-                            'Account Information',
+                            'Account',
                             'Order Management',
                             'Notification',
                             'Customer Support',

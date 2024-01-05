@@ -1,0 +1,25 @@
+.error-page-container{
+    width: 100%;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .error-page-title{
+        padding-bottom: 20px;
+        color: var(--primary-color);
+        font-size: 4rem;
+    }
+
+    .error-page-text{
+        font-size: 1.8rem;
+
+        .error-page-link{
+            color: var(--black-color);
+            &:hover{
+                color: var(--second-color);
+            }
+        }
+    }
+}
