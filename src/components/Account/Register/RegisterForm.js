@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast, Flip } from 'react-toastify';
 import axios from '@/service/axios';
 
 const cx = classNames.bind(styles);
@@ -29,9 +29,13 @@ const RegisterForm = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
+    const [isChecked, setIsChecked] = useState(false);
+    const [showPass, setShowPass] = useState(false)
+    const [showPassConfirm, setShowPassConfirm] = useState(false)
+
     const handleRegister = async () => {
         const data = { email, password };
-        const re = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        let re = /\S+@\S+\.\S+/;
         const regex = /^[a-zA-Z0-9_-]+$/;
         if (email.trim() === '') {
             setFailEmail(true);
@@ -46,7 +50,7 @@ const RegisterForm = () => {
         } else if (!re.test(email)) {
             setFailEmail(true);
             setTrueEmail(false);
-            setErrorEmail('Entered wrong email');
+            setErrorEmail('Entered Wrong Email');
         } else {
             setFailEmail(false);
             setTrueEmail(true);
@@ -57,15 +61,15 @@ const RegisterForm = () => {
                 setTruePassword(false);
                 setErrorPassword('Pleast Enter PassWord');
                 return;
-            } else if (password.length >= 10) {
+            } else if (password.length < 8) {
                 setFailPassword(true);
                 setTruePassword(false);
-                setErrorPassword('Characters PassWord Less Than 9');
+                setErrorPassword('Password Needs At Least 8 Characters');
                 return;
             } else if (!regex.test(password)) {
                 setFailPassword(true);
                 setTruePassword(false);
-                setErrorPassword('password has special characters');
+                setErrorPassword('Password Has Special Characters');
                 return;
             } else {
                 setFailPassword(false);
@@ -77,10 +81,16 @@ const RegisterForm = () => {
                 setTruePasswordCon(false);
                 setErrorPasswordCon('Pleast Enter Confirm PassWord');
                 return;
-            } else if (password != confirmPassword) {
+            } else if (password !== confirmPassword) {
                 setFailPasswordCon(true);
                 setTruePasswordCon(false);
-                setErrorPasswordCon('Password Confrimed is not the same');
+                setErrorPasswordCon('Password Confrimed Is Not The Same');
+                return;
+            } else if (isChecked === false) {
+                toast.error('Please Choose To Agree To Our Terms ', {
+                    transition: Flip,
+                    autoClose: 2000,
+                });
                 return;
             } else {
                 setFailPasswordCon(false);
@@ -151,7 +161,7 @@ const RegisterForm = () => {
                                     />
                                 </span>
                                 <input
-                                    type="password"
+                                    type={showPass ? 'text' : 'password'}
                                     placeholder="Password"
                                     className={cx('register-input')}
                                     name="password"
@@ -159,7 +169,7 @@ const RegisterForm = () => {
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
                                 {/* Toggle Password Visibility */}
-                                <span>
+                                <span onClick={()=>setShowPass(!showPass)}>
                                     <FontAwesomeIcon
                                         icon={icon({ name: 'eye-slash', style: 'regular' })}
                                         className={cx('register-icon-pass')}
@@ -180,7 +190,7 @@ const RegisterForm = () => {
                                     />
                                 </span>
                                 <input
-                                    type="password"
+                                    type={showPassConfirm ? 'text' : 'password'}
                                     placeholder="Confirm Password"
                                     className={cx('register-input')}
                                     value={confirmPassword}
@@ -188,7 +198,7 @@ const RegisterForm = () => {
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                 />
                                 {/* Toggle Confirm Password Visibility */}
-                                <span>
+                                <span onClick={()=>setShowPassConfirm(!showPassConfirm)}>
                                     <FontAwesomeIcon
                                         icon={icon({ name: 'eye-slash', style: 'regular' })}
                                         className={cx('register-icon-pass')}
@@ -202,8 +212,18 @@ const RegisterForm = () => {
                         {/* Terms and Conditions */}
                         <div className={cx('register-options')}>
                             <span className={cx('register-accept')}>
-                                <input type="checkbox" className={cx('register-accept-checkbox')} />
-                                <p className={cx('register-accept-text')}>I accept the Terms and Conditions</p>
+                                <input
+                                    type="checkbox"
+                                    className={cx('register-accept-checkbox')}
+                                    checked={isChecked}
+                                    onChange={() => setIsChecked(!isChecked)}
+                                />
+                                <p className={cx('register-accept-text')}>
+                                    I accept the{' '}
+                                    <Link to="/terms" className={cx('register-terms')}>
+                                        Terms and Conditions
+                                    </Link>
+                                </p>
                             </span>
                         </div>
                         {/* Register Button */}

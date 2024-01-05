@@ -1,22 +1,22 @@
-import classNames from 'classnames/bind';
-import styles from './LoginForm.module.scss';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { loginUser } from '@/service/User_Service';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginUser, dataUser } from '@/service/User_Service';
 import { toast, Flip } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
 import { useShoppingContext } from '@/contexts/Shopping_Context';
-import { dataUser } from '@/service/User_Service';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
 
+import classNames from 'classnames/bind';
+import styles from './LoginForm.module.scss';
+
 const cx = classNames.bind(styles);
 
 const LoginForm = () => {
+    const { setDataName  } = useShoppingContext();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { setDataName  } = useShoppingContext();
+    const [showPass, setShowPass] = useState(false)
 
     const [errorHeightEmail, setErrorHeightEmail] = useState(false);
     const [errorHeightPassword, setErrorHeightPassword] = useState(false);
@@ -150,12 +150,12 @@ const LoginForm = () => {
                             <input
                                 onChange={(e)=>setPassword(e.target.value)}
                                 value={password}
-                                type="password"
+                                type={showPass ? 'text' : 'password'}
                                 placeholder="Password"
                                 className={cx('login-input')}
                                 onKeyUp={(e) => handlePressEnter(e)}
                             />
-                            <span>
+                            <span onClick={()=>setShowPass(!showPass)}> 
                                 <FontAwesomeIcon
                                     icon={icon({ name: 'eye-slash', style: 'regular' })}
                                     className={cx('login-icon-pass')}

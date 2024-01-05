@@ -152,6 +152,12 @@
                         width: 17px;
                         height: 17px;
                     }
+                    .register-terms{
+                        color: #91653d;
+                        &:hover {
+                            color: #cf8b53;
+                        }
+                    }
                     .register-accept-text {
                         color: var(--brown-color);
                         font-size: 1.5rem;

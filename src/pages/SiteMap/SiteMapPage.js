@@ -9,12 +9,14 @@ const cx = classNames.bind(styles);
 
 const SiteMapPage = () => {
     const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
         }, 500);
         window.scroll(0, 0);
     }, []);
+    
     return (
         <>
             {loading ? <Loading /> : null}
@@ -40,44 +42,6 @@ const SiteMapPage = () => {
                                         </ul>
                                     </li>
 
-                                    {/* <li>
-                                        <a href="/store">
-                                            <i className={cx('fa fa-search')}></i> Store <small>Shopping Cart</small>
-                                        </a>
-
-                                        <ul>
-                                            <li>
-                                                <a href="/store/details">Customer Shopping Cart</a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="/store/details/:id" className={cx('multi')}>
-                                                            Cart Information
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="/store/user">List User</a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="/store/user/:id" className={cx('multi')}>
-                                                            User Information
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a href="/store/categoty">List Category</a>
-                                                <ul>
-                                                    <li>
-                                                        <a href="/store/categoty/:id" className={cx('multi')}>
-                                                            All products belong to the category ID
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li> */}
                                     <li>
                                         <a href="/account">
                                             <i className={cx('fa fa-building')}></i> Account <small>Account User</small>
