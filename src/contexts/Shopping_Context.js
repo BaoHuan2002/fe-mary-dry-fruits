@@ -46,7 +46,7 @@ export const ShoppingContextProvider = ({ children }) => {
         const currentCartItem = cartItems.find((item) => item.id === id && item.weight === weight);
         if (currentCartItem) {
             if (currentCartItem.addQuantity === 1) {
-                removeCartItem(id);
+                removeCartItem(id, weight);
                 if (cartQuantity === 0) {
                     removePoper();
                 }
