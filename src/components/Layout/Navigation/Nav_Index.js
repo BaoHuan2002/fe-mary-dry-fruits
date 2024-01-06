@@ -19,6 +19,8 @@ function NavBarIndex() {
     const [show, setShow] = useState(false);
     const [showMenu, setShowMenu] = useState(true);
     const [showMenuPage, setShowMenuPage] = useState(true);
+    const [checkLogin, setCheckLogin] = useState(false);
+
     const {
         cartQuantity,
         remove,
@@ -31,7 +33,6 @@ function NavBarIndex() {
         hideMenuPage,
     } = useShoppingContext();
     const [laptop, setLaptop] = useState(false);
-
     const token = localStorage.getItem('jwt');
 
     useEffect(() => {
@@ -42,18 +43,25 @@ function NavBarIndex() {
         handleResize();
         window.addEventListener('resize', handleResize);
 
-        if (token) {
-            const fetchData = async () => {
+        const fetchData = async () => {
+            if (token) {
+                setCheckLogin(true);
                 try {
                     const res = await dataUser();
                     if (res && res.success === true) {
                         setDataName(res.response.full_name);
+                    } else {
+                        setCheckLogin(false);
+                        localStorage.removeItem('jwt');
                     }
-                } catch (error) {}
-            };
-
-            fetchData();
-        }
+                } catch (error) {
+                    localStorage.removeItem('jwt');
+                }
+            } else {
+                setCheckLogin(false);
+            }
+        };
+        fetchData();
 
         return () => {
             window.removeEventListener('resize', handleResize);
@@ -185,7 +193,7 @@ function NavBarIndex() {
                             </li>
                         </Tippy>
                         <li className={cx('nav-item-right')}>
-                            {token ? (
+                            {token && checkLogin === true ? (
                                 <Tippy
                                     appendTo={() => document.body}
                                     interactive={true}

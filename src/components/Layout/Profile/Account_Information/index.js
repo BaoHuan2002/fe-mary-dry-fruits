@@ -55,7 +55,6 @@ const AccountInformation = () => {
                     navigate('/account/login');
                 }
             } catch (error) {
-                console.log('error', error);
                 navigate('/account/login');
             } finally {
                 setLoading(false);

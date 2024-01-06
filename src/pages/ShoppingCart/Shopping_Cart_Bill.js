@@ -185,7 +185,6 @@ function ShoppingCartBill() {
                 }
             } catch (error) {
                 navigate('/account/login');
-                console.log(error);
             }
         };
         fetchData();

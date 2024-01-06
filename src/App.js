@@ -5,6 +5,7 @@ import NavBar from './components/Layout/Navigation/Nav_Index';
 import Footer from './components/Layout/Footer/Footer_Index';
 import GlobalStyles from './components/GlobalStyles';
 import { useShoppingContext } from './contexts/Shopping_Context';
+import { dataUser } from './service/User_Service';
 
 import { ToastContainer, Flip } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,6 +18,18 @@ function App() {
     useEffect(() => {
         setHideMenuUser(true);
         setHideMenuPage(true);
+        const firstLoad = async () => {
+            try {
+                const res = await dataUser();
+                if (res && res.response) {
+                } else {
+                    localStorage.removeItem('jwt');
+                }
+            } catch (error) {
+                
+            }
+        };
+        firstLoad();
     }, [location]);
 
     return (
