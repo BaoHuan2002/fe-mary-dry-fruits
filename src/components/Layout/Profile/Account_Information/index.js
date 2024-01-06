@@ -109,7 +109,7 @@ const AccountInformation = () => {
     const handleNewPhone = async () => {
         setPhone(!phone);
         if (phone) {
-            if (!newPhone || !(newPhone.length >= 10 && newPhone.length <= 15) || isNaN(newPhone) === true) {
+            if (!newPhone || !(newPhone.length >= 10 && newPhone.length <= 11) || isNaN(newPhone) === true) {
                 setErrorPhone('Please do not leave blank and your phone number must be valid.');
                 setPhone(true);
             } else {
