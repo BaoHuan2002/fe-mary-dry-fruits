@@ -19,8 +19,7 @@ function NavBarIndex() {
     const [show, setShow] = useState(false);
     const [showMenu, setShowMenu] = useState(true);
     const [showMenuPage, setShowMenuPage] = useState(true);
-    const [checkLogin, setCheckLogin] = useState(true);
-
+    
     const {
         cartQuantity,
         remove,
@@ -45,20 +44,20 @@ function NavBarIndex() {
 
         const fetchData = async () => {
             if (token) {
-                setCheckLogin(true);
+                
                 try {
                     const res = await dataUser();
                     if (res && res.success === true) {
                         setDataName(res.response.full_name);
                     } else {
-                        setCheckLogin(false);
+                        
                         localStorage.removeItem('jwt');
                     }
                 } catch (error) {
                     localStorage.removeItem('jwt');
                 }
             } else {
-                setCheckLogin(false);
+                
             }
         };
         fetchData();
@@ -193,7 +192,7 @@ function NavBarIndex() {
                             </li>
                         </Tippy>
                         <li className={cx('nav-item-right')}>
-                            {token && checkLogin === true ? (
+                            {token ? (
                                 <Tippy
                                     appendTo={() => document.body}
                                     interactive={true}
