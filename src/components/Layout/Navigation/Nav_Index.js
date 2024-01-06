@@ -19,7 +19,7 @@ function NavBarIndex() {
     const [show, setShow] = useState(false);
     const [showMenu, setShowMenu] = useState(true);
     const [showMenuPage, setShowMenuPage] = useState(true);
-    const [checkLogin, setCheckLogin] = useState(false);
+    const [checkLogin, setCheckLogin] = useState(true);
 
     const {
         cartQuantity,

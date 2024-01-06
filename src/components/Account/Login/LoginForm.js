@@ -80,21 +80,6 @@ const LoginForm = () => {
                         autoClose: 2000,
                     });
 
-                    setInterval(async () => {
-                        localStorage.removeItem('jwt');
-
-                        try {
-                            const res = await loginUser(email, password);
-                            if (res && res.response && res.response.access_token !== undefined && res.response.access_token !== null && res.response.access_token !== '') {
-                                localStorage.setItem('jwt', res.response.access_token);
-                                
-                            } else {
-                                navigate('/account/login');
-                            }
-                        } catch (error) {
-                            
-                        }
-                    }, 55 * 10 * 1000);
                 } else if (res && res.response.status_codde === '901') {
                     toast.error(res.response.message, {
                         transition: Flip,

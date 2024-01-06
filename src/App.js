@@ -5,29 +5,37 @@ import NavBar from './components/Layout/Navigation/Nav_Index';
 import Footer from './components/Layout/Footer/Footer_Index';
 import GlobalStyles from './components/GlobalStyles';
 import { useShoppingContext } from './contexts/Shopping_Context';
-import { dataUser } from './service/User_Service';
+import { resetToken } from './service/User_Service';
 
 import { ToastContainer, Flip } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     const { setHideMenuUser, setHideMenuPage } = useShoppingContext();
+    const token = localStorage.getItem('jwt');
 
     const location = useLocation();
 
     useEffect(() => {
-        setHideMenuUser(true);
-        setHideMenuPage(true);
-        const firstLoad = async () => {
-            try {
-                const res = await dataUser();
-                if (res && res.response) {
-                } else {
+        if (token) {
+            setInterval(async () => {
+                try {
+                    const res = await resetToken();
+                    if (res && res.response && res.response.access_token !== undefined && res.response.access_token !== null && res.response.access_token !== '') {
+                        localStorage.setItem('jwt', res.response.access_token);
+                    } else {
+                        localStorage.removeItem('jwt');
+                    }
+                } catch (error) {
                     localStorage.removeItem('jwt');
                 }
-            } catch (error) {}
-        };
-        firstLoad();
+            }, 0.5 * 60 * 1000);
+        }
+    }, []);
+
+    useEffect(() => {
+        setHideMenuUser(true);
+        setHideMenuPage(true);
     }, [location]);
 
     return (
