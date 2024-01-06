@@ -189,7 +189,7 @@ const AccountInformation = () => {
 
                             <div className={cx('profile-detail-outner-input')}>
                                 <label>Email</label>
-                                <input type="text" className={cx('profile-detail-input')} value={data.email} disabled />
+                                <input type="text" className={cx('profile-detail-input')} value={data.email || ''} disabled />
                             </div>
 
                             <div className={cx('profile-detail-outner-input')}>

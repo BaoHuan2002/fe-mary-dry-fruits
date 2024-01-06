@@ -186,7 +186,6 @@ function ShoppingCartBill() {
     }, []);
 
     useEffect(() => {
-        console.log(cartItems);
         setLoading(true);
         let dataSent = JSON.parse(localStorage.getItem('data_order'));
         let status = dataSent && dataSent.status_code ? dataSent.status_code : '';
