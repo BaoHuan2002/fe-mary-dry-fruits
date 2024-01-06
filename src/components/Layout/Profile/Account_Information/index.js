@@ -1,23 +1,21 @@
 import classNames from 'classnames/bind';
 import styles from '../Profile.module.scss';
 import { useEffect, useState } from 'react';
-import { dataUser } from '@/service/User_Service';
+import { dataUser, editDataUser } from '@/service/User_Service';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
 import Button from '@/components/Button/ButtonIndex';
-import { editDataUser } from '@/service/User_Service';
 import images from '@/assets';
 import Loading from '../../Loading/Loading';
 import { useNavigate } from 'react-router-dom';
 import { toast, Flip } from 'react-toastify';
 import { useShoppingContext } from '@/contexts/Shopping_Context';
-import { useDebouncedCallback } from 'use-debounce';
+import NewPass from './New_Pass';
 
 const cx = classNames.bind(styles);
 
 const AccountInformation = () => {
     const [data, getData] = useState('');
-    const [updatePass, setUpdatePass] = useState(false);
     const [avatar, setAvatar] = useState(images.avatar);
     const [isImageError, setIsImageError] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -79,7 +77,7 @@ const AccountInformation = () => {
         setIsImageError(true);
     };
 
-    const handleEditUser = useDebouncedCallback(async () => {
+    const handleEditUser = async () => {
         if (!newFullName) {
             toast.error('Full Name cannot be empty', {
                 transition: Flip,
@@ -87,6 +85,7 @@ const AccountInformation = () => {
             });
             return setNewFullName(data.full_name);
         } else {
+            setLoading(true);
             try {
                 const res = await editDataUser(newFullName, newPhone, newAddress);
                 if (res && res.success === true) {
@@ -94,18 +93,20 @@ const AccountInformation = () => {
                         transition: Flip,
                         autoClose: 2000,
                     });
+                    setTimeout(() => {
+                        setLoading(false);
+                    }, 500);
                 }
             } catch (error) {
-                
                 toast.error('Update Full Name Failed', {
                     transition: Flip,
                     autoClose: 2000,
                 });
             }
         }
-    }, 1000);
+    };
 
-    const handleNewPhone = useDebouncedCallback(async () => {
+    const handleNewPhone = async () => {
         setPhone(!phone);
         if (phone) {
             if (!newPhone || !(newPhone.length >= 10 && newPhone.length <= 15) || isNaN(newPhone) === true) {
@@ -113,6 +114,7 @@ const AccountInformation = () => {
                 setPhone(true);
             } else {
                 setErrorPhone(false);
+                setLoading(true);
                 const res = await editDataUser(newFullName, newPhone, newAddress);
                 if (res && res.success === true) {
                     setPhone(false);
@@ -120,12 +122,15 @@ const AccountInformation = () => {
                         transition: Flip,
                         autoClose: 2000,
                     });
+                    setTimeout(() => {
+                        setLoading(false);
+                    }, 500);
                 }
             }
         }
-    }, 300);
+    };
 
-    const handleNewAddress = useDebouncedCallback(async () => {
+    const handleNewAddress = async () => {
         setAddress(!address);
         if (address) {
             if (!newAddress) {
@@ -133,6 +138,7 @@ const AccountInformation = () => {
                 setAddress(true);
             } else {
                 setErrorAddress(false);
+                setLoading(true);
                 const res = await editDataUser(newFullName, newPhone, newAddress);
                 if (res && res.success === true) {
                     setAddress(false);
@@ -140,10 +146,13 @@ const AccountInformation = () => {
                         transition: Flip,
                         autoClose: 2000,
                     });
+                    setTimeout(() => {
+                        setLoading(false);
+                    }, 500);
                 }
             }
         }
-    }, 300);
+    };
 
     return (
         <>
@@ -255,33 +264,7 @@ const AccountInformation = () => {
 
                         {errorAddress ? <p className={cx('error-mess')}>{errorAddress}</p> : ''}
 
-                        <div className={cx('profile-detail-item')}>
-                            <div className={cx('profile-detail-item-left')}>
-                                <FontAwesomeIcon
-                                    icon={icon({ name: 'lock', style: 'solid' })}
-                                    className={cx('profile-detail-icon')}
-                                />
-                                <p className={cx('profile-detail-title')}>Password</p>
-                            </div>
-                            <span onClick={() => setUpdatePass(true)}>
-                                <Button text={'Update'} blackText smal />
-                            </span>
-                        </div>
-                        {updatePass === true ? (
-                            <div className={cx('profile-detail-outner-pass')}>
-                                <div className={cx('profile-detail-pass')}>
-                                    <label htmlFor="Fullname">New Password</label>
-                                    <input id="Fullname" type="text" className={cx('profile-detail-input')} />
-                                </div>
-                                <div className={cx('profile-detail-pass')}>
-                                    <label htmlFor="Fullname">Confirm Password</label>
-                                    <input id="Fullname" type="text" className={cx('profile-detail-input')} />
-                                </div>
-                                <span onClick={() => setUpdatePass(false)}>
-                                    <Button text={'Change'} blackText />
-                                </span>
-                            </div>
-                        ) : null}
+                        <NewPass />
                     </div>
                 </div>
             </div>

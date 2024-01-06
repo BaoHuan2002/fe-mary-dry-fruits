@@ -186,7 +186,6 @@
                     align-items: center;
                     justify-content: space-between;
                     padding: 25px 30px 0px 30px;
-                    
 
                     .profile-detail-item-left {
                         display: flex;
@@ -227,7 +226,7 @@
                             min-width: 200px;
                         }
 
-                        .profile-detail-address{
+                        .profile-detail-address {
                             position: absolute;
                             top: 6px;
                             left: 100%;
@@ -239,37 +238,6 @@
                                 display: flex;
                                 flex-wrap: wrap;
                                 flex-grow: 1;
-                            }
-                        }
-                    }
-                }
-
-                .profile-detail-outner-pass {
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    gap: 10px;
-                    padding: 0 30px;
-
-                    .profile-detail-pass {
-                        display: flex;
-                        flex-direction: column;
-                        width: 70%;
-
-                        .profile-detail-input {
-                            height: 30px;
-                            margin-top: 10px;
-                            border-radius: 3px;
-                            border: none;
-                            border: 1px solid var(--border-color);
-                            margin: 10px 0;
-                            padding: 10px;
-                            font-size: 1.6rem;
-                            outline: none;
-                            &:focus {
-                                border: 1px solid var(--primary-color);
                             }
                         }
                     }
@@ -348,4 +316,77 @@
 .error-mess {
     padding: 20px 0 0 30px;
     color: red;
+}
+
+//CSS New Pass
+.pass-overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: var(--black-color);
+    opacity: 0.6;
+}
+.pass-wrapper {
+    width: 500px;
+    height: 350px;
+    background-color: var(--white-color);
+    margin: auto;
+    z-index: 10;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    .pass-position {
+        .pass-close {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+        }
+    }
+
+    .pass-item {
+        display: flex;
+        gap: 20px;
+        padding: 20px;
+        align-items: center;
+        position: relative;
+
+        .pass-label {
+            width: 150px;
+        }
+
+        .pass-input {
+            padding: 10px 40px 10px 10px;
+            font-size: 1.6rem;
+            border-radius: 7px;
+            border: none;
+            border: 1px solid var(--border-color);
+            &:focus {
+                border-color: var(--primary-color);
+            }
+        }
+
+        .pass-show {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            margin-left: 10px;
+
+            .pass-icon {
+                color: rgb(105, 98, 98);
+                cursor: pointer;
+            }
+        }
+    }
+
+    .pass-btn {
+       margin-left: 320px;
+    }
 }

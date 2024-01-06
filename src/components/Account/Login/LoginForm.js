@@ -93,6 +93,10 @@ const LoginForm = () => {
                             autoClose: 2000,
                         });
                     } else {
+                        toast.error('Wrong Login Information', {
+                            transition: Flip,
+                            autoClose: 2000,
+                        });
                         navigate('/account/login');
                     }
                 } catch (error) {
@@ -174,10 +178,17 @@ const LoginForm = () => {
                                     onKeyUp={(e) => handlePressEnter(e)}
                                 />
                                 <span onClick={() => setShowPass(!showPass)}>
-                                    <FontAwesomeIcon
-                                        icon={icon({ name: 'eye-slash', style: 'regular' })}
-                                        className={cx('login-icon-pass')}
-                                    />
+                                    {showPass ? (
+                                        <FontAwesomeIcon
+                                            icon={icon({ name: 'eye', style: 'regular' })}
+                                            className={cx('login-icon-pass')}
+                                        />
+                                    ) : (
+                                        <FontAwesomeIcon
+                                            icon={icon({ name: 'eye-slash', style: 'regular' })}
+                                            className={cx('login-icon-pass')}
+                                        />
+                                    )}
                                 </span>
                             </div>
                         </div>

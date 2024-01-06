@@ -30,16 +30,16 @@ const RegisterForm = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const [isChecked, setIsChecked] = useState(false);
-    const [showPass, setShowPass] = useState(false)
-    const [showPassConfirm, setShowPassConfirm] = useState(false)
+    const [showPass, setShowPass] = useState(false);
+    const [showPassConfirm, setShowPassConfirm] = useState(false);
 
     const token = localStorage.getItem('jwt');
 
-    useEffect(()=>{
+    useEffect(() => {
         if (token) {
             navigate('/');
         }
-    },[])
+    }, []);
 
     const handleRegister = async () => {
         const data = { email, password };
@@ -176,11 +176,18 @@ const RegisterForm = () => {
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
                                 {/* Toggle Password Visibility */}
-                                <span onClick={()=>setShowPass(!showPass)}>
-                                    <FontAwesomeIcon
-                                        icon={icon({ name: 'eye-slash', style: 'regular' })}
-                                        className={cx('register-icon-pass')}
-                                    />
+                                <span onClick={() => setShowPass(!showPass)}>
+                                    {showPass ? (
+                                        <FontAwesomeIcon
+                                            icon={icon({ name: 'eye', style: 'regular' })}
+                                            className={cx('register-icon-pass')}
+                                        />
+                                    ) : (
+                                        <FontAwesomeIcon
+                                            icon={icon({ name: 'eye-slash', style: 'regular' })}
+                                            className={cx('register-icon-pass')}
+                                        />
+                                    )}
                                 </span>
                             </div>
                         </div>
@@ -205,11 +212,18 @@ const RegisterForm = () => {
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                 />
                                 {/* Toggle Confirm Password Visibility */}
-                                <span onClick={()=>setShowPassConfirm(!showPassConfirm)}>
-                                    <FontAwesomeIcon
-                                        icon={icon({ name: 'eye-slash', style: 'regular' })}
-                                        className={cx('register-icon-pass')}
-                                    />
+                                <span onClick={() => setShowPassConfirm(!showPassConfirm)}>
+                                    {showPassConfirm ? (
+                                        <FontAwesomeIcon
+                                            icon={icon({ name: 'eye', style: 'regular' })}
+                                            className={cx('register-icon-pass')}
+                                        />
+                                    ) : (
+                                        <FontAwesomeIcon
+                                            icon={icon({ name: 'eye-slash', style: 'regular' })}
+                                            className={cx('register-icon-pass')}
+                                        />
+                                    )}
                                 </span>
                             </div>
                         </div>

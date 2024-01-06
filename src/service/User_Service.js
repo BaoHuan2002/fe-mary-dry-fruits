@@ -111,4 +111,30 @@ const resetToken = async () => {
         };
     }
 }
-export { loginUser, logoutUser, dataUser, editDataUser, resetToken };
+
+const changePass = async (currentPass, newPass, confirmNewPass) => {
+    const newPassUrl = 'api/auth/change_password';
+
+    const headers = {
+        'Content-Type': 'application/json',
+    };
+
+    const data = {
+        current_password: currentPass,
+        password: newPass,
+        password_confirmation: confirmNewPass,
+    };
+
+    try {
+        const response = await axios.post(newPassUrl, data, { headers });
+
+        return {
+            response: response,
+        };
+    } catch (error) {
+        return {
+            success: false,
+        };
+    }
+}
+export { loginUser, logoutUser, dataUser, editDataUser, resetToken, changePass };
