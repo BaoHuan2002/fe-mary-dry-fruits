@@ -20,6 +20,7 @@ const DetailItem = () => {
     const [zoneDetails, setZoneDetails] = useState(1);
     const [quantity, setQuantity] = useState(1);
     const [item, setItem] = useState([]);
+    const [activeWeightTag, setActiveWeightTag] = useState(0);
     const [activeTab, setActiveTab] = useState(0);
     const [checkPermision, setCheckPermision] = useState(false);
     const [textNotifi, setTextNotifi] = useState('');
@@ -31,6 +32,7 @@ const DetailItem = () => {
 
     const handleSelectWeight = (e) => {
         setItem({ ...item, weight: parseInt(e.target.value) });
+        setActiveWeightTag(parseInt(e.target.value));
     };
 
     const handleCheckPermission = async (id) => {
@@ -54,6 +56,7 @@ const DetailItem = () => {
             if (res && res.data) {
                 let id = res.data[0].id;
                 setItem({ ...res.data[0], weight: res.data[0].weight_tags[0].mass });
+                setActiveWeightTag(res.data[0].weight_tags[0].mass);
                 handleCheckPermission(id);
             } else {
                 setItem({});
@@ -68,6 +71,7 @@ const DetailItem = () => {
         setZoneDetails(1);
         setActiveTab(0);
         window.scrollTo(0, 0);
+        console.log('run');
         return;
     }, [id]);
 
@@ -107,7 +111,9 @@ const DetailItem = () => {
                                 ? item.weight_tags.map((element) => (
                                       <button
                                           key={element.id}
-                                          className={cx('detail-info-btn', { active: item.weight === element.mass })}
+                                          className={cx('detail-info-btn', {
+                                              active: activeWeightTag === element.mass,
+                                          })}
                                           onClick={(e) => handleSelectWeight(e)}
                                           value={element.mass}
                                       >
