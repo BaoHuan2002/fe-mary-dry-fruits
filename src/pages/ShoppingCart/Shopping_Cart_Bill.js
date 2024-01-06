@@ -19,15 +19,14 @@ function ShoppingCartBill() {
     const { totalPrice, cartItems, clearCart } = useShoppingContext();
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState('');
-    
+
     const [edit, setEdit] = useState(false);
-    
+
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
     const [fullName, setFullName] = useState('');
-    
-    const [selectedMethod, setSelectedMethod] = useState(1);
 
+    const [selectedMethod, setSelectedMethod] = useState(1);
 
     const orderItems = cartItems.map((item) => ({
         product_id: item.id,
@@ -76,9 +75,7 @@ function ShoppingCartBill() {
                         autoClose: 2000,
                     });
                 }
-            } catch (error) {
-               
-            }
+            } catch (error) {}
         } else {
             toast.error('There are no products in your shopping cart', {
                 transition: Flip,
@@ -105,7 +102,7 @@ function ShoppingCartBill() {
         if (selectedMethod === 2) {
             if (cartItems.length > 0) {
                 const newTotal = totalPrice * 20000;
-               
+
                 try {
                     const res = await PayOrder(newTotal);
                     // handle errors
@@ -127,9 +124,7 @@ function ShoppingCartBill() {
                         localStorage.setItem('data_order', data_order_JSON);
                         window.location.href = redirectUrl;
                     }
-                } catch (error) {
-                    
-                }
+                } catch (error) {}
             } else {
                 toast.error('There are no products in your shopping cart', {
                     transition: Flip,
@@ -178,8 +173,8 @@ function ShoppingCartBill() {
                     setAddress(res.response.address);
                     setPhone(res.response.phone);
                     setFullName(res.response.full_name);
-                }else{
-                    localStorage.removeItem('jwt')
+                } else {
+                    localStorage.removeItem('jwt');
                     clearCart();
                     navigate('/account/login');
                 }
@@ -199,7 +194,6 @@ function ShoppingCartBill() {
             sendOrder(dataSent);
             localStorage.removeItem('data_order');
             isTrue = false;
-           
         }
         if (params.status === '2') {
             toast.error('Payment errros', {
@@ -208,12 +202,10 @@ function ShoppingCartBill() {
             });
             localStorage.removeItem('data_order');
             isTrue = false;
-           
         }
 
         if (params.status && isTrue) {
-           
-            navigate('/*');
+            navigate('/');
         }
         const timeoutId = setTimeout(() => {
             setLoading(false);

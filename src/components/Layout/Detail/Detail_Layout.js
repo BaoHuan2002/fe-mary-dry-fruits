@@ -24,7 +24,7 @@ const DetailItem = () => {
     const [activeTab, setActiveTab] = useState(0);
     const [checkPermision, setCheckPermision] = useState(false);
     const [textNotifi, setTextNotifi] = useState('');
-
+    const [oldId, setOldId] = useState('');
     const handleCheckActive = (index) => {
         setActiveTab(index);
         setZoneDetails(index + 1);
@@ -67,11 +67,14 @@ const DetailItem = () => {
     };
 
     useEffect(() => {
+        if (id.id === oldId) {
+            return;
+        }
         fetchData();
         setZoneDetails(1);
         setActiveTab(0);
+        setOldId(id.id);
         window.scrollTo(0, 0);
-        console.log('run');
         return;
     }, [id]);
 
