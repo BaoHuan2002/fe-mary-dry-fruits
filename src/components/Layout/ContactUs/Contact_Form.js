@@ -13,8 +13,8 @@ const ContactForm = () => {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [content, setContent] = useState('');
-    const [isErrors, setIsErrors] = useState({});
-    
+    const [isErrors, setIsErrors] = useState({ fullName: true, email: true, phone: true, content: true });
+
     const textErrors = {
         fullName: 'Please do not leave it blank ',
         email: 'Please do not leave it blank and must be email',
@@ -24,10 +24,6 @@ const ContactForm = () => {
 
     const handleSetValue = (e) => {
         const target = e.target;
-        if (!target.value) {
-            return;
-        }
-
         const inputName = target.getAttribute('name');
 
         if (inputName === 'full_name') {
@@ -56,16 +52,15 @@ const ContactForm = () => {
             content: false,
         };
 
-        isTrue.content = !content ? true : false;
+        isTrue.content = content ? true : false;
 
-        isTrue.phone = !phone ? true : false;
+        isTrue.phone = phone ? true : false;
 
-        isTrue.email = !email || !emailRegex.test(email) ? true : false;
+        isTrue.email = email && emailRegex.test(email) ? true : false;
 
-        isTrue.fullName = !fullName ? true : false;
+        isTrue.fullName = fullName ? true : false;
 
-        setIsErrors(isTrue);
-        if (phone && fullName && email && content) {
+        if (isTrue.phone && isTrue.fullName && isTrue.email && isTrue.content) {
             await axios.post('/api/feedback/feedback', {
                 full_name: fullName,
                 email,
@@ -77,21 +72,22 @@ const ContactForm = () => {
             setFullName('');
             setPhone('');
             setIsErrors({
-                fullName: false,
-                email: false,
-                phone: false,
-                content: false,
+                fullName: true,
+                email: true,
+                phone: true,
+                content: true,
             });
             toast.success('Send Feedback Success', {
                 transition: Flip,
                 autoClose: 2000,
             });
+        } else {
+            setIsErrors(isTrue);
         }
     };
 
     return (
         <>
-            
             <div className={cx('contact-form-container')}>
                 <div className={cx('contact-form-outner')}>
                     <input
@@ -102,7 +98,7 @@ const ContactForm = () => {
                         onChange={(e) => handleSetValue(e)}
                         name="full_name"
                     />
-                    {isErrors.fullName ? <span className={cx('errors')}>* {textErrors.fullName}</span> : ''}
+                    {!isErrors.fullName ? <span className={cx('errors')}>* {textErrors.fullName}</span> : ''}
                 </div>
                 <div className={cx('contact-form-outner')}>
                     <input
@@ -113,7 +109,7 @@ const ContactForm = () => {
                         onChange={(e) => handleSetValue(e)}
                         name="email"
                     />
-                    {isErrors.email ? <span className={cx('errors')}>* {textErrors.email}</span> : ''}
+                    {!isErrors.email ? <span className={cx('errors')}>* {textErrors.email}</span> : ''}
                 </div>
                 <div className={cx('contact-form-outner')}>
                     <input
@@ -124,7 +120,7 @@ const ContactForm = () => {
                         onChange={(e) => handleSetValue(e)}
                         name="phone"
                     />
-                    {isErrors.phone ? <span className={cx('errors')}>* {textErrors.phone}</span> : ''}
+                    {!isErrors.phone ? <span className={cx('errors')}>* {textErrors.phone}</span> : ''}
                 </div>
                 <div className={cx('contact-form-outner')}>
                     <textarea
@@ -134,7 +130,7 @@ const ContactForm = () => {
                         onChange={(e) => handleSetValue(e)}
                         name="content"
                     ></textarea>
-                    {isErrors.content ? <span className={cx('errors')}>* {textErrors.content}</span> : ''}
+                    {!isErrors.content ? <span className={cx('errors')}>* {textErrors.content}</span> : ''}
                 </div>
                 <div className={cx('contact-form-btn')} onClick={() => handleSubmit()}>
                     <Button text={'Send'} blackText big />
