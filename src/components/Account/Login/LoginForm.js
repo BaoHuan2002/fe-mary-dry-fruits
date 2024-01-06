@@ -29,11 +29,17 @@ const LoginForm = () => {
 
     const navigate = useNavigate();
 
+    const token = localStorage.getItem('jwt');
+
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
         }, 500);
         window.scroll(0, 90);
+
+        if (token) {
+            navigate('/');
+        }
     }, []);
 
     const handleLogin = async () => {

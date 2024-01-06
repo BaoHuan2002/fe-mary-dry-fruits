@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './RegisterForm.module.scss';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
@@ -32,6 +32,14 @@ const RegisterForm = () => {
     const [isChecked, setIsChecked] = useState(false);
     const [showPass, setShowPass] = useState(false)
     const [showPassConfirm, setShowPassConfirm] = useState(false)
+
+    const token = localStorage.getItem('jwt');
+
+    useEffect(()=>{
+        if (token) {
+            navigate('/');
+        }
+    },[])
 
     const handleRegister = async () => {
         const data = { email, password };
