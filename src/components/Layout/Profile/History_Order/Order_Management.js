@@ -68,7 +68,7 @@ const OrderComponent = ({ index, time }) => {
                 setListOrders([]);
             }
         } catch (error) {
-            console.log('error', error);
+           
         } finally {
             setLoading(false);
         }
@@ -127,7 +127,7 @@ const OrderComponent = ({ index, time }) => {
                         </li>
 
                         {lastPage.map((pageNumber) => {
-                            console.log(pageNumber, currentPage);
+                          
                             return (
                                 <li
                                     onClick={() => changePage(pageNumber)}
@@ -200,13 +200,7 @@ const OrderComponent = ({ index, time }) => {
                                         <span>{textStatus(orderDetail.status)}</span>
                                     </div>
                                 </div>
-                                <div className={cx('history-order-item')}>
-                                    <span className={cx('history-order-sup')}>SubTotal</span>
-                                    <div className={cx('history-order-des')}>
-                                        <span>:</span>
-                                        <span>${orderDetail.subtotal}</span>
-                                    </div>
-                                </div>
+                               
                                 {orderDetail.discount ? (
                                     <div className={cx('history-order-item')}>
                                         <span className={cx('history-order-sup')}>Discount Amount</span>

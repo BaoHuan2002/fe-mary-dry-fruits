@@ -16,7 +16,6 @@ const loginUser = async (email, password) => {
         const response = await axios.post(loginUrl, loginData, { headers });
 
         return {
-            success: true,
             response: response,
         };
     } catch (error) {
@@ -92,4 +91,24 @@ const editDataUser = async (fullname, phone, address, password) => {
     }
 };
 
-export { loginUser, logoutUser, dataUser, editDataUser };
+const resetToken = async () => {
+    const resetDataUrl = '/api/auth/refresh';
+
+    const headers = {
+        'Content-Type': 'application/json',
+    };
+    
+    try {
+        const response = await axios.post(resetDataUrl, { headers });
+
+        return {
+            success: true,
+            response: response,
+        };
+    } catch (error) {
+        return {
+            success: false,
+        };
+    }
+}
+export { loginUser, logoutUser, dataUser, editDataUser, resetToken };

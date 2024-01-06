@@ -1,6 +1,4 @@
 /* eslint-disable no-unused-vars */
-import classNames from 'classnames/bind';
-import styles from './Shopping_Cart.module.scss';
 import images from '@/assets';
 import { useShoppingContext } from '@/contexts/Shopping_Context';
 import { useState, useEffect } from 'react';
@@ -9,7 +7,9 @@ import { dataUser } from '@/service/User_Service';
 import { toast, Flip } from 'react-toastify';
 import Loading from '@/components/Layout/Loading/Loading';
 import { useNavigate, useParams } from 'react-router-dom';
-import { compileString } from 'sass';
+
+import classNames from 'classnames/bind';
+import styles from './Shopping_Cart.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -17,17 +17,17 @@ function ShoppingCartBill() {
     const navigate = useNavigate();
     const params = useParams();
     const { totalPrice, cartItems, clearCart } = useShoppingContext();
-    const [discount, setDiscount] = useState(0);
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState('');
-
+    
     const [edit, setEdit] = useState(false);
-
+    
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
     const [fullName, setFullName] = useState('');
-
+    
     const [selectedMethod, setSelectedMethod] = useState(1);
+
 
     const orderItems = cartItems.map((item) => ({
         product_id: item.id,
@@ -77,7 +77,7 @@ function ShoppingCartBill() {
                     });
                 }
             } catch (error) {
-                console.log(error);
+               
             }
         } else {
             toast.error('There are no products in your shopping cart', {
@@ -105,7 +105,7 @@ function ShoppingCartBill() {
         if (selectedMethod === 2) {
             if (cartItems.length > 0) {
                 const newTotal = totalPrice * 20000;
-                console.log(newTotal);
+               
                 try {
                     const res = await PayOrder(newTotal);
                     // handle errors
@@ -128,7 +128,7 @@ function ShoppingCartBill() {
                         window.location.href = redirectUrl;
                     }
                 } catch (error) {
-                    console.log(error);
+                    
                 }
             } else {
                 toast.error('There are no products in your shopping cart', {
@@ -173,17 +173,20 @@ function ShoppingCartBill() {
         const fetchData = async () => {
             try {
                 const res = await dataUser();
-                if (res && res.success === true) {
+                if (res && res.success === true && res.response.status === 1) {
                     setData(res.response);
                     setAddress(res.response.address);
                     setPhone(res.response.phone);
                     setFullName(res.response.full_name);
+                }else{
+                    localStorage.removeItem('jwt')
+                    clearCart();
+                    navigate('/account/login');
                 }
             } catch (error) {
-                console.log(error);
+                navigate('/account/login');
             }
         };
-
         fetchData();
     }, []);
 
@@ -196,7 +199,7 @@ function ShoppingCartBill() {
             sendOrder(dataSent);
             localStorage.removeItem('data_order');
             isTrue = false;
-            console.log(false);
+           
         }
         if (params.status === '2') {
             toast.error('Payment errros', {
@@ -205,11 +208,11 @@ function ShoppingCartBill() {
             });
             localStorage.removeItem('data_order');
             isTrue = false;
-            console.log(false);
+           
         }
 
         if (params.status && isTrue) {
-            console.log(true);
+           
             navigate('/*');
         }
         const timeoutId = setTimeout(() => {
@@ -301,15 +304,19 @@ function ShoppingCartBill() {
 
             <div className={cx('cart-bill')}>
                 <div className={cx('cart-bill-outner')}>
-                    <div className={cx('cart-bill-detail')}>
+                    <div className={cx('cart-bill-heading')}>
+                        <p>Payment orders</p>
+                    </div>
+                    <div className={cx('cart-bill-total')}>
                         <span>Total:</span>
                         <span>
                             <span className={cx('cart-bill-unit')}>$</span>
                             <span>{totalPrice.toFixed(2)}</span>
                         </span>
                     </div>
+                    {/* <div className={cx('cart-bill-description')}>* Shipping information and discounts are announced in the detailed invoice</div> */}
                     {/* choose method pay */}
-                    <h4>Select payment method:</h4>
+                    <h4 className={cx('cart-bill-title')}>Select Payment Method:</h4>
                     <div className={cx('cart-bill-detail')}>
                         <label>
                             <input

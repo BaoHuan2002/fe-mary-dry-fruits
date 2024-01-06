@@ -116,24 +116,6 @@
                 border: 1px solid var(--border-color);
                 border-radius: 7px;
 
-                .cart-coupon-input {
-                    border-top-left-radius: 7px;
-                    border-bottom-left-radius: 7px;
-                    height: 40px;
-                    outline: none;
-                    border: 1px solid var(--border-color);
-                    border-right: none;
-                    margin-top: 10px;
-                    padding-left: 10px;
-                    width: 75%;
-                    &::placeholder {
-                        font-size: 1.5rem;
-                    }
-                    &:focus::placeholder {
-                        color: transparent;
-                    }
-                }
-
                 .cart-coupon-btn {
                     background-color: #3167eb;
                     color: var(--white-color);
@@ -158,20 +140,29 @@
                 .cart-bill-outner {
                     border-bottom: 1px solid var(--border-color);
                     padding-bottom: 10px;
-                    h4 {
+                    .cart-bill-title {
                         margin: 4px 0 12px;
+                        padding-top: 10px;
+                        border-top: 1px solid var(--border-color);
                     }
+
+                    .cart-bill-heading{
+                        height: 30px;
+                        border-bottom: 1px solid var(--border-color);
+                    }
+
                     .cart-bill-detail {
                         display: flex;
                         justify-content: space-between;
-                        margin-bottom: 10px;
-
+                        
                         .cart-bill-unit {
                             margin-left: 5px;
                         }
                         label {
+                            cursor: pointer;
                             input {
                                 margin-right: 4px;
+                                cursor: pointer;
                             }
                         }
                     }
@@ -197,6 +188,21 @@
                             }
                         }
                     }
+                }
+
+                .cart-bill-total{
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding-top: 10px;
+                }
+
+                .cart-bill-description{
+                    height: 60px;
+                    display: flex;
+                    align-items: center;
+                    color: red;
                 }
 
                 .cart-bill-card {

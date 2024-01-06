@@ -66,7 +66,7 @@ const ProductList = ({ categoryId }) => {
                 setLastPage(Array.from({ length: lastPage }, (_, index) => index + 1));
             }
         } catch (error) {
-            console.log('error', error);
+           
         }
     };
     const handleClear = () => {

@@ -53,7 +53,6 @@ const DetailItem = () => {
             const res = await axios.post('api/product/product_details', { product_id: id });
             if (res && res.data) {
                 let id = res.data[0].id;
-                console.log(res);
                 setItem({ ...res.data[0], weight: res.data[0].weight_tags[0].mass });
                 handleCheckPermission(id);
             } else {
@@ -158,11 +157,19 @@ const DetailItem = () => {
 
                 <div className={cx('detail-content')}>
                     {zoneDetails === 1 ? (
-                        <div dangerouslySetInnerHTML={{ __html: item.description }} className={cx('plr-40')} />
+                        <div className={cx('detail-product-container')}>
+                            <div dangerouslySetInnerHTML={{ __html: item.description }} className={cx('plr-40')} />
+                        </div>
                     ) : (
                         ''
                     )}
-                    {zoneDetails === 2 ? <div dangerouslySetInnerHTML={{ __html: item.nutrition_detail }} /> : ''}
+                    {zoneDetails === 2 ? (
+                        <div className={cx('detail-product-container')}>
+                            <div dangerouslySetInnerHTML={{ __html: item.nutrition_detail }} />
+                        </div>
+                    ) : (
+                        ''
+                    )}
                     {zoneDetails === 3 ? (
                         <div className={cx('detail-evaluate')}>
                             <DetailReview star={item.star} />

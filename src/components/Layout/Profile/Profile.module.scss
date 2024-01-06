@@ -190,9 +190,9 @@
 
                     .profile-detail-item-left {
                         display: flex;
-                        
                         align-items: center;
                         height: 40px;
+                        position: relative;
 
                         .profile-detail-icon {
                             color: var(--primary-color);
@@ -213,7 +213,7 @@
                         .profile-detail-change {
                             padding: 10px;
                             font-size: 1.6rem;
-                            width: 250px;
+                            min-width: 200px;
                             height: 40px;
                             border-radius: 3px;
                             border: none;
@@ -223,6 +223,24 @@
                             }
                         }
 
+                        .profile-detail-show {
+                            min-width: 200px;
+                        }
+
+                        .profile-detail-address{
+                            position: absolute;
+                            top: 6px;
+                            left: 100%;
+                            line-height: 2.8rem;
+                            display: flex;
+
+                            .profile-detail-add {
+                                min-width: 200px;
+                                display: flex;
+                                flex-wrap: wrap;
+                                flex-grow: 1;
+                            }
+                        }
                     }
                 }
 
@@ -270,7 +288,7 @@
     color: var(--primary-color);
 }
 
-//CSS Profile Notification 
+//CSS Profile Notification
 .profile-noti {
     width: 53%;
     display: flex;
@@ -327,7 +345,7 @@
     width: 70%;
 }
 
-.error-mess{
+.error-mess {
     padding: 20px 0 0 30px;
     color: red;
 }

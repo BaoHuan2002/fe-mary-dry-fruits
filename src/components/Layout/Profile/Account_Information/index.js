@@ -10,6 +10,8 @@ import images from '@/assets';
 import Loading from '../../Loading/Loading';
 import { useNavigate } from 'react-router-dom';
 import { toast, Flip } from 'react-toastify';
+import { useShoppingContext } from '@/contexts/Shopping_Context';
+import { useDebouncedCallback } from 'use-debounce';
 
 const cx = classNames.bind(styles);
 
@@ -28,41 +30,38 @@ const AccountInformation = () => {
     const [address, setAddress] = useState(false);
     const [newAddress, setNewAddress] = useState('');
 
-    const [errorName, setErrorName] = useState(false);
     const [errorPhone, setErrorPhone] = useState('');
     const [errorAddress, setErrorAddress] = useState('');
 
     const navigate = useNavigate();
-    const check = localStorage.getItem('jwt');
+    const { clearCart } = useShoppingContext();
 
     useEffect(() => {
-        if (!check) {
-            navigate('/account/login');
-        } else {
-            const fetchData = async () => {
-                try {
-                    let res = await dataUser();
-                    if (res && res.response) {
-                        let phone = res.response.phone || '';
-                        let address = res.response.address || '';
-                        let fullName = res.response.full_name || '';
-                        getData(res.response);
-                        setNewFullName(fullName);
-                        setNewPhone(phone);
-                        setNewAddress(address);
-                    } else {
-                        getData([]);
-                    }
-                } catch (error) {
-                    console.log('error', error);
+        const fetchData = async () => {
+            try {
+                let res = await dataUser();
+                if (res && res.success === true && res.response.status === 1) {
+                    let phone = res.response.phone || '';
+                    let address = res.response.address || '';
+                    let fullName = res.response.full_name || '';
+                    getData(res.response);
+                    setNewFullName(fullName);
+                    setNewPhone(phone);
+                    setNewAddress(address);
+                } else {
+                    getData([]);
+                    localStorage.removeItem('jwt');
+                    clearCart();
                     navigate('/account/login');
-                } finally {
-                    setLoading(false);
-                    window.scrollTo(0,0);
                 }
-            };
-            fetchData();
-        }
+            } catch (error) {
+                navigate('/account/login');
+            } finally {
+                setLoading(false);
+                window.scrollTo(0, 0);
+            }
+        };
+        fetchData();
     }, []);
 
     const handleAvatarChange = (e) => {
@@ -76,75 +75,75 @@ const AccountInformation = () => {
         }
     };
 
-    const handleCheckPhone = (value) => {
-        const cleanedNumber = value.replace(/[^\d+]/g, '');
-        if (cleanedNumber.length <= 15) {
-            setNewPhone(cleanedNumber);
-        }
-    };
-
     const handleImageError = () => {
         setIsImageError(true);
     };
 
-    const handleEditUser = async () => {
-        setErrorAddress(false);
-        setErrorPhone(false);
-
+    const handleEditUser = useDebouncedCallback(async () => {
         if (!newFullName) {
-            setErrorName(true);
             toast.error('Full Name cannot be empty', {
                 transition: Flip,
                 autoClose: 2000,
             });
             return setNewFullName(data.full_name);
         } else {
-            setErrorName(false);
-        }
-
-        if (!newPhone || !(newPhone.length >= 10 && newPhone.length <= 15) || isNaN(newPhone) === true) {
-            setErrorPhone('Please do not leave blank and your phone number must be valid.');
-            toast.error('Update Profile Failed', {
-                transition: Flip,
-                autoClose: 2000,
-            });
-            return setNewPhone(data.phone);
-        } else {
-            setErrorPhone(false);
-        }
-
-        if (!newAddress) {
-            setErrorAddress('Please do not leave blank');
-            toast.error('Update Profile Failed', {
-                transition: Flip,
-                autoClose: 2000,
-            });
-            return setNewAddress(data.address);
-        } else {
-            setErrorAddress(false);
-        }
-
-        if (!errorAddress && !errorPhone && !errorName) {
             try {
                 const res = await editDataUser(newFullName, newPhone, newAddress);
                 if (res && res.success === true) {
-                    setPhone(false);
-                    setAddress(false);
-                    toast.success('Update Profile Success', {
+                    toast.success('Update Full Name Success', {
                         transition: Flip,
                         autoClose: 2000,
                     });
                 }
             } catch (error) {
-                console.log(error);
-                toast.error('Update Profile Failed', {
+                
+                toast.error('Update Full Name Failed', {
                     transition: Flip,
                     autoClose: 2000,
                 });
             }
         }
-        return;
-    };
+    }, 1000);
+
+    const handleNewPhone = useDebouncedCallback(async () => {
+        setPhone(!phone);
+        if (phone) {
+            if (!newPhone || !(newPhone.length >= 10 && newPhone.length <= 15) || isNaN(newPhone) === true) {
+                setErrorPhone('Please do not leave blank and your phone number must be valid.');
+                setPhone(true);
+            } else {
+                setErrorPhone(false);
+                const res = await editDataUser(newFullName, newPhone, newAddress);
+                if (res && res.success === true) {
+                    setPhone(false);
+                    toast.success('Update Phone Success', {
+                        transition: Flip,
+                        autoClose: 2000,
+                    });
+                }
+            }
+        }
+    }, 300);
+
+    const handleNewAddress = useDebouncedCallback(async () => {
+        setAddress(!address);
+        if (address) {
+            if (!newAddress) {
+                setErrorAddress('Please do not leave blank');
+                setAddress(true);
+            } else {
+                setErrorAddress(false);
+                const res = await editDataUser(newFullName, newPhone, newAddress);
+                if (res && res.success === true) {
+                    setAddress(false);
+                    toast.success('Update Address Success', {
+                        transition: Flip,
+                        autoClose: 2000,
+                    });
+                }
+            }
+        }
+    }, 300);
 
     return (
         <>
@@ -180,28 +179,18 @@ const AccountInformation = () => {
                             </div>
 
                             <div className={cx('profile-detail-outner-input')}>
-                                <label htmlFor="email">Email</label>
-                                <input
-                                    id="email"
-                                    type="text"
-                                    className={cx('profile-detail-input')}
-                                    value={data.email}
-                                    readOnly
-                                    disabled
-                                />
+                                <label>Email</label>
+                                <input type="text" className={cx('profile-detail-input')} value={data.email} disabled />
                             </div>
 
                             <div className={cx('profile-detail-outner-input')}>
-                                <div className={cx('profile-detail-outner-level')}>
-                                    <label>Level</label>
-                                    <input
-                                        type="text"
-                                        className={cx('profile-detail-input')}
-                                        value={data.level === 1 ? 'Admin' : 'Member'}
-                                        readOnly
-                                        disabled
-                                    />
-                                </div>
+                                <label>Level</label>
+                                <input
+                                    type="text"
+                                    className={cx('profile-detail-input')}
+                                    value={data.level === 1 ? 'Admin' : 'Member'}
+                                    disabled
+                                />
                             </div>
 
                             <div className={cx('profile-detail-btn')} onClick={() => handleEditUser()}>
@@ -210,6 +199,7 @@ const AccountInformation = () => {
                         </div>
                     </div>
                 </div>
+
                 <div className={cx('profile-detail-wrapper')}>
                     <div className={cx('profile-detail-main')}>
                         <div className={cx('profile-detail-item')}>
@@ -223,14 +213,14 @@ const AccountInformation = () => {
                                 {phone ? (
                                     <input
                                         value={newPhone}
-                                        onChange={(e) => handleCheckPhone(e.target.value)}
+                                        onChange={(e) => setNewPhone(e.target.value)}
                                         className={cx('profile-detail-change')}
                                     />
                                 ) : (
-                                    <span>{newPhone}</span>
+                                    <span className={cx('profile-detail-show')}>{newPhone}</span>
                                 )}
                             </div>
-                            <div onClick={() => setPhone(!phone)}>
+                            <div onClick={() => handleNewPhone()}>
                                 <Button text={phone ? 'Save' : 'Update'} blackText smal />
                             </div>
                         </div>
@@ -252,11 +242,13 @@ const AccountInformation = () => {
                                         className={cx('profile-detail-change')}
                                     />
                                 ) : (
-                                    <span>{newAddress}</span>
+                                    <div className={cx('profile-detail-address')}>
+                                        <span className={cx('profile-detail-add')}>{newAddress}</span>
+                                    </div>
                                 )}
                             </div>
 
-                            <span onClick={() => setAddress(!address)}>
+                            <span onClick={() => handleNewAddress()}>
                                 <Button text={address ? 'Save' : 'Update'} blackText smal />
                             </span>
                         </div>

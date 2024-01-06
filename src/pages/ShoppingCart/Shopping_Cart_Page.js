@@ -1,24 +1,21 @@
-import classNames from 'classnames/bind';
-import styles from './Shopping_Cart.module.scss';
 import Header from '@/components/Layout/Header/Header_Index';
 import Button from '@/components/Button/ButtonIndex';
 import CartItem from './Shopping_Cart_Item';
 import ShoppingCartBill from './Shopping_Cart_Bill';
 import { useShoppingContext } from '@/contexts/Shopping_Context';
-import { useState } from 'react';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
+import classNames from 'classnames/bind';
+import styles from './Shopping_Cart.module.scss';
 
 const cx = classNames.bind(styles);
 
 function ShoppingCartPage() {
     const { cartItems } = useShoppingContext();
-    const [show, setShow] = useState(false);
+    
 
     return (
         <>
-            <Header title={'Shopping Cart'}/>
+            <Header title={'Shopping Cart'} />
             <div className={cx('cart-container')}>
                 <div className={cx('cart-wrapper')}>
                     <div className={cx('cart-info-product')}>
@@ -44,7 +41,6 @@ function ShoppingCartPage() {
                         <div className={cx('cart-option')}>
                             <Button text={'Continue shopping'} blackText link={'/product'} />
                         </div>
-                        
                     </div>
 
                     <div className={cx('cart-info-pay')}>
