@@ -29,11 +29,17 @@ const LoginForm = () => {
 
     const navigate = useNavigate();
 
+    const token = localStorage.getItem('jwt');
+
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
         }, 500);
         window.scroll(0, 90);
+
+        if (token) {
+            navigate('/');
+        }
     }, []);
 
     const handleLogin = async () => {
@@ -67,31 +73,42 @@ const LoginForm = () => {
                 setErrorEmail(false);
                 setMessErrorEmail('');
                 setErrorHeightEmail(false);
-                let res = await loginUser(email, password);
+                try {
+                    let res = await loginUser(email, password);
 
-                if (res && res.response && res.response.access_token !== undefined && res.response.access_token !== null && res.response.access_token !== '') {
-                    localStorage.setItem('jwt', res.response.access_token);
-                    navigate('/');
-                    let data = await dataUser();
-                    setDataName(data.response.full_name);
+                    if (
+                        res &&
+                        res.response &&
+                        res.response.access_token !== undefined &&
+                        res.response.access_token !== null &&
+                        res.response.access_token !== ''
+                    ) {
+                        localStorage.setItem('jwt', res.response.access_token);
+                        navigate('/');
+                        let data = await dataUser();
+                        setDataName(data.response.full_name);
 
-                    toast.success('Login Success', {
-                        transition: Flip,
-                        autoClose: 2000,
-                    });
-
-                } else if (res && res.response.status_codde === '901') {
-                    toast.error(res.response.message, {
-                        transition: Flip,
-                        autoClose: 2000,
-                    });
-                    navigate('/account/login');
-                } else {
-                    toast.error('Wrong Login Information', {
-                        transition: Flip,
-                        autoClose: 2000,
-                    });
-                    navigate('/account/login');
+                        toast.success('Login Success', {
+                            transition: Flip,
+                            autoClose: 2000,
+                        });
+                    } else {
+                        navigate('/account/login');
+                    }
+                } catch (error) {
+                    if (error && error.response.status_codde === '901') {
+                        toast.error(error.response.message, {
+                            transition: Flip,
+                            autoClose: 2000,
+                        });
+                        navigate('/account/login');
+                    } else {
+                        toast.error('Wrong Login Information', {
+                            transition: Flip,
+                            autoClose: 2000,
+                        });
+                        navigate('/account/login');
+                    }
                 }
             }
         }
