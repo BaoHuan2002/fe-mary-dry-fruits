@@ -86,21 +86,23 @@ const LoginForm = () => {
                             transition: Flip,
                             autoClose: 2000,
                         });
-                    } else if (res && res.response.status_codde === '901') {
-                        toast.error(res.response.message, {
+                    } else {
+                        navigate('/account/login');
+                    }
+                } catch (error) {
+                    if (error && error.response.status_codde === '901') {
+                        toast.error(error.response.message, {
                             transition: Flip,
                             autoClose: 2000,
                         });
                         navigate('/account/login');
-                    } else{
+                    } else {
+                        toast.error('Wrong Login Information', {
+                            transition: Flip,
+                            autoClose: 2000,
+                        });
                         navigate('/account/login');
                     }
-                } catch (error) {
-                    toast.error('Wrong Login Information', {
-                        transition: Flip,
-                        autoClose: 2000,
-                    });
-                    navigate('/account/login');
                 }
             }
         }
