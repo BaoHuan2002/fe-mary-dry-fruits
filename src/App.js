@@ -25,9 +25,7 @@ function App() {
                 } else {
                     localStorage.removeItem('jwt');
                 }
-            } catch (error) {
-                
-            }
+            } catch (error) {}
         };
         firstLoad();
     }, [location]);

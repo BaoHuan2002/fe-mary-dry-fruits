@@ -68,7 +68,7 @@ const OrderComponent = ({ index, time }) => {
                 setListOrders([]);
             }
         } catch (error) {
-            console.log('error', error);
+           
         } finally {
             setLoading(false);
         }
@@ -127,7 +127,7 @@ const OrderComponent = ({ index, time }) => {
                         </li>
 
                         {lastPage.map((pageNumber) => {
-                            console.log(pageNumber, currentPage);
+                          
                             return (
                                 <li
                                     onClick={() => changePage(pageNumber)}

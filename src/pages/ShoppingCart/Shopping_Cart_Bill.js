@@ -77,7 +77,7 @@ function ShoppingCartBill() {
                     });
                 }
             } catch (error) {
-                console.log(error);
+               
             }
         } else {
             toast.error('There are no products in your shopping cart', {
@@ -105,7 +105,7 @@ function ShoppingCartBill() {
         if (selectedMethod === 2) {
             if (cartItems.length > 0) {
                 const newTotal = totalPrice * 20000;
-                console.log(newTotal);
+               
                 try {
                     const res = await PayOrder(newTotal);
                     // handle errors
@@ -128,7 +128,7 @@ function ShoppingCartBill() {
                         window.location.href = redirectUrl;
                     }
                 } catch (error) {
-                    console.log(error);
+                    
                 }
             } else {
                 toast.error('There are no products in your shopping cart', {
@@ -199,7 +199,7 @@ function ShoppingCartBill() {
             sendOrder(dataSent);
             localStorage.removeItem('data_order');
             isTrue = false;
-            console.log(false);
+           
         }
         if (params.status === '2') {
             toast.error('Payment errros', {
@@ -208,11 +208,11 @@ function ShoppingCartBill() {
             });
             localStorage.removeItem('data_order');
             isTrue = false;
-            console.log(false);
+           
         }
 
         if (params.status && isTrue) {
-            console.log(true);
+           
             navigate('/*');
         }
         const timeoutId = setTimeout(() => {

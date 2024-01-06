@@ -107,7 +107,6 @@ const RegisterForm = () => {
                 setErrorEmail('Email already exists');
                 setPassword('');
                 setConfirmPassword('');
-                console.log(error);
             }
         }
     };

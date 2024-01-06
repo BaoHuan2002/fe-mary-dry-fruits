@@ -22,7 +22,7 @@ const CategoryList = ({ getIdCategory }) => {
                     setCategory([]);
                 }
             } catch (error) {
-                console.log('error', error);
+               
             } finally {
                 setLoading(false);
             }

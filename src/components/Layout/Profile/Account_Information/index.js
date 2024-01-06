@@ -96,7 +96,7 @@ const AccountInformation = () => {
                     });
                 }
             } catch (error) {
-                console.log(error);
+                
                 toast.error('Update Full Name Failed', {
                     transition: Flip,
                     autoClose: 2000,
