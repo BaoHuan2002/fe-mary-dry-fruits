@@ -96,7 +96,6 @@ const AccountInformation = () => {
                     });
                 }
             } catch (error) {
-                
                 toast.error('Update Full Name Failed', {
                     transition: Flip,
                     autoClose: 2000,
@@ -105,10 +104,17 @@ const AccountInformation = () => {
         }
     }, 1000);
 
+    const handleCheckPhone = (value) => {
+        const cleanedNumber = value.replace(/[^\d+]/g, '');
+        if (cleanedNumber.length <= 11) {
+            setNewPhone(cleanedNumber);
+        }
+    };
+
     const handleNewPhone = useDebouncedCallback(async () => {
         setPhone(!phone);
         if (phone) {
-            if (!newPhone || !(newPhone.length >= 10 && newPhone.length <= 15) || isNaN(newPhone) === true) {
+            if (!newPhone || !(newPhone.length >= 10 && newPhone.length <= 11) || isNaN(newPhone) === true) {
                 setErrorPhone('Please do not leave blank and your phone number must be valid.');
                 setPhone(true);
             } else {
@@ -213,7 +219,7 @@ const AccountInformation = () => {
                                 {phone ? (
                                     <input
                                         value={newPhone}
-                                        onChange={(e) => setNewPhone(e.target.value)}
+                                        onChange={(e) => handleCheckPhone(e.target.value)}
                                         className={cx('profile-detail-change')}
                                     />
                                 ) : (
