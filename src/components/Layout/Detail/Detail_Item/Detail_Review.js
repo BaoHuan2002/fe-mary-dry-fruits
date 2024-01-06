@@ -1,6 +1,6 @@
+import { StarCheck, Star } from '@/icons';
 import classNames from 'classnames/bind';
 import styles from '../Detail.module.scss';
-import { StarCheck, Star } from '@/icons';
 
 const cx = classNames.bind(styles);
 

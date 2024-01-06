@@ -1,7 +1,8 @@
-import classNames from 'classnames/bind';
-import styles from './Category.module.scss';
 import CategoryItem from './Category_Item';
 import images from '@/assets';
+
+import classNames from 'classnames/bind';
+import styles from './Category.module.scss';
 
 const cx = classNames.bind(styles);
 

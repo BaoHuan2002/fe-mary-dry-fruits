@@ -79,25 +79,6 @@
                 border-bottom-right-radius: 7px;
                 margin-bottom: 10px;
             }
-
-            .cart-transport-normal {
-                display: flex;
-                align-items: center;
-                height: 60px;
-                background-color: #ccf0d1;
-                border-radius: 7px;
-                margin: 5px 0;
-                padding: 15px;
-
-                .truck-icon {
-                    color: #00b517;
-                    margin-right: 10px;
-                }
-
-                .cart-transport-text {
-                    color: #149680;
-                }
-            }
         }
 
         .cart-info-pay {
@@ -108,30 +89,12 @@
             gap: 20px;
             min-width: 280px;
 
-            .cart-coupon,
             .cart-bill {
                 display: flex;
                 flex-direction: column;
                 padding: 25px 15px 25px;
                 border: 1px solid var(--border-color);
                 border-radius: 7px;
-
-                .cart-coupon-btn {
-                    background-color: #3167eb;
-                    color: var(--white-color);
-
-                    height: 40px;
-                    border: none;
-                    border-top-right-radius: 7px;
-                    border-bottom-right-radius: 7px;
-                    transition: background-color 0.3s liner;
-                    width: 25%;
-                    &:hover {
-                        cursor: pointer;
-                        background-color: #3167eb;
-                        filter: brightness(130%);
-                    }
-                }
             }
 
             .cart-bill {

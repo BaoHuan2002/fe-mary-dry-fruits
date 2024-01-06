@@ -1,15 +1,15 @@
-import classNames from 'classnames/bind';
-import styles from './Shopping_Cart.module.scss';
 import { useShoppingContext } from '@/contexts/Shopping_Context';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
+
+import classNames from 'classnames/bind';
+import styles from './Shopping_Cart.module.scss';
 
 const cx = classNames.bind(styles);
 
 function ShoppingCartItem({ ...item }) {
     const { increaseQuantity, decreaseQuantity, removeCartItem } = useShoppingContext();
     
-
     return (
         <div className={cx('cart-item-container')}>
             <div className={cx('cart-item-outner-image')}>

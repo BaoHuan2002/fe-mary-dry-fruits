@@ -12,6 +12,7 @@
         .sitemap-heading{
             padding-bottom: 30px;
         }
+
         .sitemap {
             display: inline-block;
             min-width: 100%;
@@ -41,21 +42,6 @@
             -moz-box-shadow: 1px 1px 2px rgba(106, 113, 127, 0.2);
             box-shadow: 1px 1px 2px rgba(106, 113, 127, 0.2);
         }
-        
-        // li a.multi:after {
-        //     content: ' ';
-        //     position: absolute;
-        //     left: 6px;
-        //     top: 6px;
-        //     width: 100%;
-        //     height: 100%;
-        //     border-width: 2px;
-        //     border-color: #eee;
-        //     border-top-width: 0 !important;
-        //     border-left-width: 0 !important;
-        //     background-color: transparent;
-        //     z-index: -1;
-        // }
         
         li a:before {
             content: ' ' attr(href) ' ';

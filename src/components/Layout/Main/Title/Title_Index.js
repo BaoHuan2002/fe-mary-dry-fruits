@@ -1,6 +1,6 @@
+import images from '@/assets';
 import classNames from 'classnames/bind';
 import styles from './Title_Index.module.scss';
-import images from '@/assets';
 
 const cx = classNames.bind(styles);
 

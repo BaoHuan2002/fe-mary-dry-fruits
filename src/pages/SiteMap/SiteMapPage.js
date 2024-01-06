@@ -1,5 +1,5 @@
-import Header from '@/components/Layout/Header/Header_Index';
 import { useEffect, useState } from 'react';
+import Header from '@/components/Layout/Header/Header_Index';
 import Loading from '@/components/Layout/Loading/Loading';
 
 import classNames from 'classnames/bind';

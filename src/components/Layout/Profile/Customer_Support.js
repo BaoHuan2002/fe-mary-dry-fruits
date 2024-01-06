@@ -1,9 +1,9 @@
-import classNames from 'classnames/bind';
-import styles from './Profile.module.scss';
-import Button from '@/components/Button/ButtonIndex';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Button from '@/components/Button/ButtonIndex';
+
+import classNames from 'classnames/bind';
+import styles from './Profile.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -23,8 +23,6 @@ const CustomerSupport = () => {
                     autoClose: 2000,
                 });
             }, 500);
-
-           
         } else {
             if (!isButtonClickable) {
                 return;

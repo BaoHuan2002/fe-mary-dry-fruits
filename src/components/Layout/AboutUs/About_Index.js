@@ -1,9 +1,9 @@
+import { useEffect, useState } from 'react';
+import { World, User, Coffee, Eye } from '@/icons';
 import Title from '../Main/Title/Title_Index';
 import AboutIntro from './About_Intro';
 import AboutItem from './About_Item';
 import AboutOutstanding from './About_Outstanding';
-import { World, User, Coffee, Eye } from '@/icons';
-import { useEffect, useState } from 'react';
 import Loading from '../Loading/Loading';
 
 import classNames from 'classnames/bind';

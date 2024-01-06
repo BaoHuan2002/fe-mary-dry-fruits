@@ -1,11 +1,11 @@
-import { Route, Routes, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { resetToken } from './service/User_Service';
+import { useShoppingContext } from './contexts/Shopping_Context';
 import routes from '@/routes';
 import NavBar from './components/Layout/Navigation/Nav_Index';
 import Footer from './components/Layout/Footer/Footer_Index';
 import GlobalStyles from './components/GlobalStyles';
-import { useShoppingContext } from './contexts/Shopping_Context';
-import { resetToken } from './service/User_Service';
 
 import { ToastContainer, Flip } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

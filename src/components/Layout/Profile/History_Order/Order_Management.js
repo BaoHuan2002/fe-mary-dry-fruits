@@ -1,5 +1,5 @@
-import Button from '@/components/Button/ButtonIndex';
 import { useEffect, useState } from 'react';
+import Button from '@/components/Button/ButtonIndex';
 import axios from '@/service/axios';
 import moment from 'moment';
 import Loading from '../../Loading/Loading';
@@ -68,7 +68,6 @@ const OrderComponent = ({ index, time }) => {
                 setListOrders([]);
             }
         } catch (error) {
-           
         } finally {
             setLoading(false);
         }
@@ -111,7 +110,7 @@ const OrderComponent = ({ index, time }) => {
                                             onClick={() => handleGetHistory(item.id)}
                                             className={cx('order-table-btn')}
                                         >
-                                            <Button text={'Details'} blackText smal/>
+                                            <Button text={'Details'} blackText smal />
                                         </span>
                                     </td>
                                 </tr>
@@ -127,7 +126,6 @@ const OrderComponent = ({ index, time }) => {
                         </li>
 
                         {lastPage.map((pageNumber) => {
-                          
                             return (
                                 <li
                                     onClick={() => changePage(pageNumber)}
@@ -183,7 +181,7 @@ const OrderComponent = ({ index, time }) => {
                                                             ? item.weight + 'gram'
                                                             : item.weight / 1000 + 'kg'}
                                                     </td>
-                                                    <td>${item.product.price * item.weight /100}</td>
+                                                    <td>${(item.product.price * item.weight) / 100}</td>
                                                 </tr>
                                             );
                                         })}
@@ -200,7 +198,7 @@ const OrderComponent = ({ index, time }) => {
                                         <span>{textStatus(orderDetail.status)}</span>
                                     </div>
                                 </div>
-                               
+
                                 {orderDetail.discount ? (
                                     <div className={cx('history-order-item')}>
                                         <span className={cx('history-order-sup')}>Discount Amount</span>

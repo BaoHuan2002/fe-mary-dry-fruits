@@ -1,17 +1,18 @@
-import classNames from 'classnames/bind';
-import styles from './Nav_Index.module.scss';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useShoppingContext } from '@/contexts/Shopping_Context';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { dataUser } from '@/service/User_Service';
+import { useShoppingContext } from '@/contexts/Shopping_Context';
 import Tippy from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css';
 import Cart from '../Cart/Cart';
 import MenuUser from '../Menu/Menu_User';
 import MenuPage from '../Menu/Menu_Page';
 import MenuLaptop from '../Menu/Menu_Laptop';
-import { dataUser } from '@/service/User_Service';
+
+import classNames from 'classnames/bind';
+import styles from './Nav_Index.module.scss';
 
 const cx = classNames.bind(styles);
 

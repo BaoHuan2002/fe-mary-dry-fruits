@@ -3,10 +3,10 @@ import Contact from '@/components/Layout/ContactUs/Contact_Index';
 
 const ContactPage = () => {
     return (
-        <div>
+        <>
             <Header title={'Contact Us'} />
             <Contact />
-        </div>
+        </>
     );
 };
 

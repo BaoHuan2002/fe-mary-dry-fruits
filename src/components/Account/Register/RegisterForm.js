@@ -1,12 +1,12 @@
-import classNames from 'classnames/bind';
-import styles from './RegisterForm.module.scss';
-import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { toast, Flip } from 'react-toastify';
 import axios from '@/service/axios';
+
+import classNames from 'classnames/bind';
+import styles from './RegisterForm.module.scss';
 
 const cx = classNames.bind(styles);
 

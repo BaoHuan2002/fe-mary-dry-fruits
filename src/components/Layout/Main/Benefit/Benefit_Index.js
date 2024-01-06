@@ -1,7 +1,8 @@
+import { ArrowRotate, Suitcase, Clock } from '@/icons';
 import BenefitItem from './Benefit_Item';
+
 import classNames from 'classnames/bind';
 import styles from './Benefit.module.scss';
-import { ArrowRotate, Suitcase, Clock } from '@/icons';
 
 const cx = classNames.bind(styles);
 

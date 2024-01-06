@@ -1,7 +1,8 @@
-import classNames from 'classnames/bind';
-import styles from './Premium_Product.module.scss';
 import TitleIndex from '../Title/Title_Index';
 import PremiumProductItem from './Premium_Product_Item';
+
+import classNames from 'classnames/bind';
+import styles from './Premium_Product.module.scss';
 
 const cx = classNames.bind(styles);
 

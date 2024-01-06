@@ -1,6 +1,6 @@
+import Button from '@/components/Button/ButtonIndex';
 import classNames from 'classnames/bind';
 import styles from './Banner_Sale_Index.module.scss';
-import Button from '@/components/Button/ButtonIndex';
 
 const cx = classNames.bind(styles);
 

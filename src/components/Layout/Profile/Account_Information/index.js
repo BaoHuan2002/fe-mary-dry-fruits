@@ -1,16 +1,17 @@
-import classNames from 'classnames/bind';
-import styles from '../Profile.module.scss';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { dataUser, editDataUser } from '@/service/User_Service';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { toast, Flip } from 'react-toastify';
+import { useShoppingContext } from '@/contexts/Shopping_Context';
 import Button from '@/components/Button/ButtonIndex';
 import images from '@/assets';
 import Loading from '../../Loading/Loading';
-import { useNavigate } from 'react-router-dom';
-import { toast, Flip } from 'react-toastify';
-import { useShoppingContext } from '@/contexts/Shopping_Context';
 import NewPass from './New_Pass';
+
+import classNames from 'classnames/bind';
+import styles from '../Profile.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -21,13 +22,10 @@ const AccountInformation = () => {
     const [loading, setLoading] = useState(true);
 
     const [newFullName, setNewFullName] = useState('');
-
     const [phone, setPhone] = useState(false);
     const [newPhone, setNewPhone] = useState('');
-
     const [address, setAddress] = useState(false);
     const [newAddress, setNewAddress] = useState('');
-
     const [errorPhone, setErrorPhone] = useState('');
     const [errorAddress, setErrorAddress] = useState('');
 
@@ -189,7 +187,12 @@ const AccountInformation = () => {
 
                             <div className={cx('profile-detail-outner-input')}>
                                 <label>Email</label>
-                                <input type="text" className={cx('profile-detail-input')} value={data.email || ''} disabled />
+                                <input
+                                    type="text"
+                                    className={cx('profile-detail-input')}
+                                    value={data.email || ''}
+                                    disabled
+                                />
                             </div>
 
                             <div className={cx('profile-detail-outner-input')}>

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+
 import classNames from 'classnames/bind';
 import styles from './Contact_Us.module.scss';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { Icon } from 'leaflet';
+
 const cx = classNames.bind(styles);
 
 const ContactLocation = () => {

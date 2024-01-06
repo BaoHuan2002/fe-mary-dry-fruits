@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
+import { debounce } from 'lodash';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
 import ProductItem from '@/pages/Product/Product_Item';
 import axios from '@/service/axios';
 import Button from '@/components/Button/ButtonIndex';
-import _, { debounce } from 'lodash';
 
 import classNames from 'classnames/bind';
 import styles from '@/components/Layout/LayoutProduct/Layout_Product.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
 
 const cx = classNames.bind(styles);
 

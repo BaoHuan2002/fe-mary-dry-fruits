@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
-import images from '@/assets';
-import { useShoppingContext } from '@/contexts/Shopping_Context';
 import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useShoppingContext } from '@/contexts/Shopping_Context';
 import { Order, PayOrder } from '@/service/Order_Service';
 import { dataUser } from '@/service/User_Service';
 import { toast, Flip } from 'react-toastify';
+import images from '@/assets';
 import Loading from '@/components/Layout/Loading/Loading';
-import { useNavigate, useParams } from 'react-router-dom';
 
 import classNames from 'classnames/bind';
 import styles from './Shopping_Cart.module.scss';
@@ -19,7 +19,6 @@ function ShoppingCartBill() {
     const { totalPrice, cartItems, clearCart } = useShoppingContext();
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState('');
-
     const [edit, setEdit] = useState(false);
 
     const [address, setAddress] = useState('');
@@ -306,7 +305,7 @@ function ShoppingCartBill() {
                             <span>{totalPrice.toFixed(2)}</span>
                         </span>
                     </div>
-                    {/* <div className={cx('cart-bill-description')}>* Shipping information and discounts are announced in the detailed invoice</div> */}
+                    
                     {/* choose method pay */}
                     <h4 className={cx('cart-bill-title')}>Select Payment Method:</h4>
                     <div className={cx('cart-bill-detail')}>

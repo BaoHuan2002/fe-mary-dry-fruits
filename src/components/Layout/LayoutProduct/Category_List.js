@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from '@/service/axios';
 import SliderProducts from '../Main/BestProducts/Slider_Products';
 import Loading from '../Loading/Loading';
+
 import classNames from 'classnames/bind';
 import styles from '@/components/Layout/LayoutProduct/Layout_Product.module.scss';
 

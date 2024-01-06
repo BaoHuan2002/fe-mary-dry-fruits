@@ -1,8 +1,8 @@
+import { useShoppingContext } from '@/contexts/Shopping_Context';
 import Header from '@/components/Layout/Header/Header_Index';
 import Button from '@/components/Button/ButtonIndex';
 import CartItem from './Shopping_Cart_Item';
 import ShoppingCartBill from './Shopping_Cart_Bill';
-import { useShoppingContext } from '@/contexts/Shopping_Context';
 
 import classNames from 'classnames/bind';
 import styles from './Shopping_Cart.module.scss';
@@ -11,7 +11,6 @@ const cx = classNames.bind(styles);
 
 function ShoppingCartPage() {
     const { cartItems } = useShoppingContext();
-    
 
     return (
         <>

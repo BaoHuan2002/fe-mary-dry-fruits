@@ -112,7 +112,6 @@ export const ShoppingContextProvider = ({ children }) => {
     };
 
     const [dataName, setDataName] = useState('');
-
     const [hideMenuUser, setHideMenuUser] = useState(true);
     const [hideMenuPage, setHideMenuPage] = useState(true);
 

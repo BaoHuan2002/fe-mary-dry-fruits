@@ -3,10 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { loginUser, dataUser } from '@/service/User_Service';
 import { toast, Flip } from 'react-toastify';
 import { useShoppingContext } from '@/contexts/Shopping_Context';
-import Loading from '@/components/Layout/Loading/Loading';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro';
+import Loading from '@/components/Layout/Loading/Loading';
 
 import classNames from 'classnames/bind';
 import styles from './LoginForm.module.scss';
