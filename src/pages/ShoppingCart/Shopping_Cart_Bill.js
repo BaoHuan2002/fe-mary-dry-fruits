@@ -30,7 +30,7 @@ function ShoppingCartBill() {
 
     const orderItems = cartItems.map((item) => ({
         product_id: item.id,
-        price: item.price,
+        price: (((item.price * item.weight) / 100) * item.addQuantity).toFixed(2),
         weight: item.weight,
         quantity: item.addQuantity,
     }));
@@ -186,6 +186,7 @@ function ShoppingCartBill() {
     }, []);
 
     useEffect(() => {
+        console.log(cartItems);
         setLoading(true);
         let dataSent = JSON.parse(localStorage.getItem('data_order'));
         let status = dataSent && dataSent.status_code ? dataSent.status_code : '';
