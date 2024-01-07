@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { useShoppingContext } from '@/contexts/Shopping_Context';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { StarCheck, Star } from '@/icons';
 import axios from '@/service/axios';
 import BestProductsIndex from '../Main/BestProducts/Best_Product_Index';
@@ -16,6 +16,7 @@ const cx = classNames.bind(styles);
 
 const DetailItem = () => {
     const id = useParams();
+    const navigate = useNavigate();
 
     const { addCartItem } = useShoppingContext();
     const [zoneDetails, setZoneDetails] = useState(1);
@@ -54,15 +55,18 @@ const DetailItem = () => {
     const fetchData = async () => {
         try {
             const res = await axios.post('api/product/product_details', { product_id: id });
+
             if (res && res.data) {
                 let id = res.data[0].id;
                 setItem({ ...res.data[0], weight: res.data[0].weight_tags[0].mass });
                 setActiveWeightTag(res.data[0].weight_tags[0].mass);
                 handleCheckPermission(id);
             } else {
+                navigate('/*');
                 setItem({});
             }
         } catch (error) {
+            navigate('/*');
             console.error(error);
         }
     };

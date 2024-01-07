@@ -17,13 +17,12 @@ const CategoryList = ({ getIdCategory }) => {
         const fetchData = async () => {
             try {
                 const res = await axios.get('api/product/category');
-                if (res?.data) {
+                if (res && res?.data.length > 0 && res?.data) {
                     setCategory(res?.data);
                 } else {
                     setCategory([]);
                 }
             } catch (error) {
-               
             } finally {
                 setLoading(false);
             }
