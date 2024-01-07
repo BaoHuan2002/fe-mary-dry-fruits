@@ -55,7 +55,6 @@ const DetailItem = () => {
     const fetchData = async () => {
         try {
             const res = await axios.post('api/product/product_details', { product_id: id });
-            console.log(res);
 
             if (res && res.data) {
                 let id = res.data[0].id;
@@ -64,7 +63,6 @@ const DetailItem = () => {
                 handleCheckPermission(id);
             } else {
                 navigate('/*');
-
                 setItem({});
             }
         } catch (error) {
