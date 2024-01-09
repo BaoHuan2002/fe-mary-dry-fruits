@@ -27,7 +27,7 @@ const SiteMapPage = () => {
                     <nav className={cx('primary')}>
                         <ul>
                             <li id="home">
-                                <a href="https://localhost:3000">
+                                <a href="https://fe-mary-dry-fruits.vercel.app/">
                                     <i className={cx('fa fa-home')}></i> Home <small>Home Page</small>
                                 </a>
                                 <ul>
