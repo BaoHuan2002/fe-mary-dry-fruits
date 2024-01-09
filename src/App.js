@@ -21,7 +21,13 @@ function App() {
             setInterval(async () => {
                 try {
                     const res = await resetToken();
-                    if (res && res.response && res.response.access_token !== undefined && res.response.access_token !== null && res.response.access_token !== '') {
+                    if (
+                        res &&
+                        res.response &&
+                        res.response.access_token !== undefined &&
+                        res.response.access_token !== null &&
+                        res.response.access_token !== ''
+                    ) {
                         localStorage.setItem('jwt', res.response.access_token);
                     } else {
                         localStorage.removeItem('jwt');
@@ -29,7 +35,7 @@ function App() {
                 } catch (error) {
                     localStorage.removeItem('jwt');
                 }
-            }, 0.5 * 60 * 1000);
+            }, 20 * 60 * 1000);
         }
     }, []);
 

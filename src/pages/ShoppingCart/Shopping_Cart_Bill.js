@@ -54,25 +54,24 @@ function ShoppingCartBill() {
     }
 
     const sendOrder = async (dataSent) => {
+        setLoading(true);
         if (cartItems.length > 0) {
             try {
-                setLoading(true);
                 const resOrder = await Order(dataSent);
                 if (resOrder.orderResponse.status_code === '910') {
-                    setLoading(false);
                     toast.error(resOrder.orderResponse.message, {
                         transition: Flip,
                         autoClose: 2000,
                     });
-                    return;
+                    setLoading(false);
                 }
                 if (resOrder && resOrder.success === true) {
                     clearCart();
-                    setLoading(false);
                     toast.success('Successful purchase', {
                         transition: Flip,
                         autoClose: 2000,
                     });
+                    setLoading(false);
                 }
             } catch (error) {}
         } else {
@@ -106,7 +105,6 @@ function ShoppingCartBill() {
                     const res = await PayOrder(newTotal);
                     // handle errors
                     if (res.response.status_code === '910') {
-                        setLoading(false);
                         toast.error(res.response.message, {
                             transition: Flip,
                             autoClose: 2000,
@@ -164,6 +162,8 @@ function ShoppingCartBill() {
     };
 
     useEffect(() => {
+        setLoading(true);
+
         const fetchData = async () => {
             try {
                 const res = await dataUser();
@@ -172,6 +172,7 @@ function ShoppingCartBill() {
                     setAddress(res.response.address);
                     setPhone(res.response.phone);
                     setFullName(res.response.full_name);
+                    setLoading(false);
                 } else {
                     localStorage.removeItem('jwt');
                     clearCart();
@@ -185,7 +186,6 @@ function ShoppingCartBill() {
     }, []);
 
     useEffect(() => {
-        setLoading(true);
         let dataSent = JSON.parse(localStorage.getItem('data_order'));
         let status = dataSent && dataSent.status_code ? dataSent.status_code : '';
         let isTrue = true;
@@ -206,11 +206,6 @@ function ShoppingCartBill() {
         if (params.status && isTrue) {
             navigate('/');
         }
-        const timeoutId = setTimeout(() => {
-            setLoading(false);
-        }, 1500);
-
-        return () => clearTimeout(timeoutId);
     }, []);
 
     return (
@@ -305,7 +300,7 @@ function ShoppingCartBill() {
                             <span>{totalPrice.toFixed(2)}</span>
                         </span>
                     </div>
-                    
+
                     {/* choose method pay */}
                     <h4 className={cx('cart-bill-title')}>Select Payment Method:</h4>
                     <div className={cx('cart-bill-detail')}>
